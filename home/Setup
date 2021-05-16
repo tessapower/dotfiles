@@ -1,24 +1,24 @@
-sudo apt install git
-sudo apt install curl
-sudo snap install alacritty
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-sudo apt-add-repository https://cli.github.com/packages
-sudo apt update
-sudo apt install gh
-sudo apt install tmux
-sudo apt install vim
-sudo apt install zsh
-sudo apt install fonts-powerline
-sudo apt install clang
-sudo apt install clang-tidy
-sudo apt install ruby
-sudo apt install ruby-bundler
-sudo apt install jekyll
-sudo apt install libgtest-dev
-sudo apt install octave
-sudo apt remove konsole
-sudo apt purge konsole
-sudo apt remove kate
-sudo apt purge kate
-sudo apt remove thunderbird
-sudo apt purge thunderbird
+apt install git
+apt install curl
+snap install alacritty
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+apt-add-repository https://cli.github.com/packages
+apt update
+apt install gh
+apt install tmux
+apt install vim
+apt install zsh
+apt install fonts-powerline
+apt install clang
+apt install clang-tidy
+apt install ruby
+apt install ruby-bundler
+apt install jekyll
+apt install libgtest-dev
+apt install octave
+apt remove konsole
+apt purge konsole
+apt remove kate
+apt purge kate
+apt remove thunderbird
+apt purge thunderbird
