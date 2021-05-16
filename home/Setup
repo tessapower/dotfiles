@@ -1,0 +1,18 @@
+sudo apt install git
+sudo apt install curl
+sudo snap install alacritty
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+sudo apt-add-repository https://cli.github.com/packages
+sudo apt update
+sudo apt install gh
+sudo apt install tmux
+sudo apt install vim
+sudo apt install zsh
+sudo apt install fonts-powerline
+sudo apt install clang
+sudo apt install clang-tidy
+sudo apt install ruby
+sudo apt install ruby-bundler
+sudo apt install jekyll
+sudo apt install libgtest-dev
+sudo apt install octave
