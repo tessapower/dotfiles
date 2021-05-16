@@ -16,3 +16,9 @@ sudo apt install ruby-bundler
 sudo apt install jekyll
 sudo apt install libgtest-dev
 sudo apt install octave
+sudo apt remove konsole
+sudo apt purge konsole
+sudo apt remove kate
+sudo apt purge kate
+sudo apt remove thunderbird
+sudo apt purge thunderbird
