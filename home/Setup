@@ -22,3 +22,4 @@ apt remove kate
 apt purge kate
 apt remove thunderbird
 apt purge thunderbird
+apt install batcat
