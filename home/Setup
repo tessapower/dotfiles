@@ -23,3 +23,4 @@ apt purge kate
 apt remove thunderbird
 apt purge thunderbird
 apt install bat
+apt install tig
