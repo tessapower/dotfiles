@@ -32,8 +32,24 @@ set laststatus=2
 set hlsearch
 set showmatch
 
-" Color Scheme
-" colorscheme rose-pine-dark		" Set colorscheme to Rose Pine Dark
+" Nord Theme Overrides and Customisations
+augroup nord-theme-overrides
+  autocmd!
+  " Use 'nord7' for comments
+  autocmd ColorScheme nord highlight Comment ctermfg=14 guifg=#8fbcbb
+augroup END
+
+" Active Cursor Line Number Background
+let g:nord_cursor_line_number_background = 1
+
+" Solid Vertical Split
+let g:nord_bold_vertical_split_line = 1
+
+" Uniform Background for Vim Diffs
+let g:nord_uniform_diff_background = 1
+
+" Italic Comments
+let g:nord_italic_comments = 1
 
 " }}}
 " ============================================================================
@@ -44,9 +60,12 @@ set showmatch
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+" Nord Theme
+Plug 'arcticicestudio/nord-vim'
+
 " Autocompletion for C and C++
-Plug 'xavierd/clang_complete'
-g:clang_library_path='/usr/lib/llvm-10/lib/'
+" Plug 'xavierd/clang_complete'
+" g:clang_library_path='/usr/lib/llvm-10/lib/'
 
 " Emoji Support
 Plug 'junegunn/vim-emoji'
@@ -83,3 +102,7 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " }}}
+
+" Color Scheme
+colorscheme nord		" Set colorscheme to Nord
+
