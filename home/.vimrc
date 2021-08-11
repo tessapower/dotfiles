@@ -12,18 +12,18 @@ silent! source $VIMRUNTIME/defaults.vim
 set clipboard=unnamed         " Set clipboard to unnamed to access sysmte clipboard
 set ai                        " Auto indenting
 set cc=80                     " Display a ruler at 80 char
-set wrap				              " Always wrap lines
-set textwidth=79			        " Wrap after 79 characters
-set ts=2				              " Tab stop
-set sw=2				              " Shift width
-set expandtab				          " Replace tabs with spaces
-set noshiftround			        " ???
-syntax on				              " Turn on syntax highlighting
-set nu rnu				            " Turn on hybrid line numbers
-set ruler				              " Show file stats
-set vb					              " Blink cursor on error instead of beeping (grr)
-set encoding=utf-8		        " Encoding
-set listchars=tab:▸\ ,eol:¬		" Visualise tabs and newlines
+set wrap                      " Always wrap lines
+set textwidth=79              " Wrap after 79 characters
+set ts=2                      " Tab stop
+set sw=2                      " Shift width
+set expandtab                 " Replace tabs with spaces
+set noshiftround              " ???
+syntax on                     " Turn on syntax highlighting
+set nu rnu                    " Turn on hybrid line numbers
+set ruler                     " Show file stats
+set vb                        " Blink cursor on error instead of beeping (grr)
+set encoding=utf-8            " Encoding
+set listchars=tab:▸\ ,eol:¬   " Visualise tabs and newlines
 
 " Status Bar
 set laststatus=2
