@@ -33,7 +33,7 @@ set hlsearch
 set showmatch
 
 " Color Scheme
-" colorscheme rose-pine-dark		" Set colorscheme to Rose Pine Dark
+" colorscheme one-dark   " Set colorscheme to One Dark
 
 " }}}
 " ============================================================================
