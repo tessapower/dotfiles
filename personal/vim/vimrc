@@ -1,6 +1,6 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 " ============================================================================
-" .vimrc for Tessa Power {{{
+" Personal .vimrc for Tessa Power {{{
 " ============================================================================
 " ============================================================================
 " BASIC SETTINGS {{{
@@ -17,41 +17,19 @@ set textwidth=79              " Wrap after 79 characters
 set ts=2                      " Tab stop
 set sw=2                      " Shift width
 set expandtab                 " Replace tabs with spaces
-set noshiftround              " ???
+set noshiftround              " Don't round indents to multiple of sw
 syntax on                     " Turn on syntax highlighting
 set nu rnu                    " Turn on hybrid line numbers
 set ruler                     " Show ruler
 set vb                        " Blink cursor on error instead of beeping (grr)
 set encoding=utf-8            " Encoding
 set listchars=tab:▸\ ,eol:¬   " Visualise tabs and newlines
-
-" Status Bar
-set laststatus=2
-
-" Searching
-set hlsearch
-set showmatch
-
-" Nord Theme Overrides and Customisations
-"augroup nord-theme-overrides
-"  autocmd!
-"  " Use 'nord7' for comments
-"  autocmd ColorScheme nord highlight Comment ctermfg=14 guifg=#8fbcbb
-"augroup END
-"
-"" Active Cursor Line Number Background
-"let g:nord_cursor_line_number_background = 1
-"
-"" Solid Vertical Split
-"let g:nord_bold_vertical_split_line = 1
-"
-"" Uniform Background for Vim Diffs
-"let g:nord_uniform_diff_background = 1
-"
-"" Italic Comments
-"let g:nord_italic_comments = 1
+set laststatus=2              " Status Bar
+set hlsearch                  " Enable highlight search
+set showmatch                 " Show matches for search
 
 " }}}
+
 " ============================================================================
 " VIM-PLUG BLOCK {{{
 " ============================================================================
@@ -61,10 +39,13 @@ set showmatch
 call plug#begin('~/.vim/plugged')
 
 " Nord Theme
-" Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim'
 
 " Everforest Theme
 Plug 'sainnhe/everforest'
+
+" Vim One Theme
+Plug 'joshdick/onedark.vim'
 
 " Emoji Support
 Plug 'junegunn/vim-emoji'
@@ -95,29 +76,65 @@ call plug#end()
 
 " }}}
 
-
-" Set Color Scheme
-" colorscheme nord        " Set colorscheme to Nord
-
-" Everforest colorscheme settings
-"
-" Lightline Colorscheme
-let g:lightline = {'colorscheme' : 'everforest'}
-
 " Important!!
 "
 if has('termguicolors')
   set termguicolors
 endif
 
-set background=dark
-" set background=light
+" ============================================================================
+" CUSTOM COLORSCHEME BLOCK (NORD) {{{
+" ============================================================================
 
-" This configuration option should be placed before `colorscheme everforest`.
-" Available values: 'hard', 'medium'(default), 'soft'
-let g:everforest_background = 'dark'
+" Nord Theme Overrides and Customisations
+"augroup nord-theme-overrides
+"  autocmd!
+"  " Use 'nord7' for comments
+"  autocmd ColorScheme nord highlight Comment ctermfg=14 guifg=#8fbcbb
+"augroup END
+"
+"" Active Cursor Line Number Background
+"let g:nord_cursor_line_number_background = 1
+"
+"" Solid Vertical Split
+"let g:nord_bold_vertical_split_line = 1
+"
+"" Uniform Background for Vim Diffs
+"let g:nord_uniform_diff_background = 1
+"
+"" Italic Comments
+"let g:nord_italic_comments = 1
+
+" }}}
+
+" ============================================================================
+" CUSTOM COLORSCHEME BLOCK (EVERFOREST) {{{
+" ============================================================================
+
+" Lightline Colorscheme
+let g:lightline = {'colorscheme' : 'everforest'}
+
+" let g:everforest_background = 'dark'
 let g:everforest_enable_italic = 1
-" Available values: 'high' 'low'
 let g:everforest_ui_contrast = 'high'
+set background=dark
+"set background=light
+
+" }}}
+
+" ============================================================================
+" CUSTOM COLORSCHEME BLOCK (ONEDARK) {{{
+" ============================================================================
+
+"let g:lightline = {'colorscheme': 'onedark'}
+"
+"let g:onedark_termcolors = 256
+"let g:onedark_terminal_italics = 1
+"
+"set background=dark
+
+" }}}
+
+" Set Color Scheme
 colorscheme everforest
 

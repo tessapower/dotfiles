@@ -24,11 +24,11 @@ declare -a FILES=(
   'git/gitconfig               -> ~/.gitconfig'
   'git/gitignore_global        -> ~/.gitignore_global'
   'git/tigrc                   -> ~/.tigrc'
-  'vim/vimrc                   -> ~/.vimrc'
-  'vim/autoload/plug.vim       -> ~/.vim/autoload/plug.vim'
-  'shell/zshrc                 -> ~/.zshrc'
   'shell/tmux.conf             -> ~/.tmux.conf'
+  'shell/zshrc                 -> ~/.zshrc'
   'tty/alacritty/alacritty.yml -> ~/.config/alacritty/alacritty.yml'
+  'vim/autoload/plug.vim       -> ~/.vim/autoload/plug.vim'
+  'vim/vimrc                   -> ~/.vimrc'
 )
 
 

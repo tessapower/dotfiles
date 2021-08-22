@@ -8,6 +8,8 @@
     whitespace = warn
 [merge]
     tool = opendiff
+[credential "https://github.com"]
+    helper = !/usr/bin/gh auth git-credential
 [user]
     name = Tessa Power
     email = tessa@tessapower.co
@@ -20,7 +22,12 @@
 [pull]
     default = current
     rebase = true
+[init]
+    defaultBranch = main
 [commit]
-    gpgsign = true
 [gpg]
-    program = gpg
+[filter "lfs"]
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
