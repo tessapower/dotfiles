@@ -1,0 +1,26 @@
+[core]
+    editor = /usr/bin/vim
+    pager = less -x4
+    excludesfile = ~/.gitignore_global
+    whitespace = trailing-space,space-before-tab,blank-at-eol
+    precomposeunicode = true
+[apply]
+    whitespace = warn
+[merge]
+    tool = opendiff
+[user]
+    name = Tessa Power
+    email = tessa@tessapower.co
+[color]
+    status = auto
+    branch = auto
+    ui = auto
+[push]
+    default = upstream
+[pull]
+    default = current
+    rebase = true
+[commit]
+    gpgsign = true
+[gpg]
+    program = gpg
