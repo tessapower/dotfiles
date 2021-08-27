@@ -16,8 +16,8 @@ _script=$(basename "${0}")
 readonly SCRIPT="${_script}"
 unset _script
 
-readonly LOCAL='/home'
-readonly REMOTE='/run/media/tp/backup/home'
+readonly LOCAL='/'
+readonly REMOTE='/run/media/tp/backup/'
 
 readonly -a ALWAYS_EXCLUDE=(
     '/lost+found'
@@ -43,7 +43,7 @@ readonly -a BACKUP_EXCLUDE=(
 ###############################################################################
 
 print_usage() {
-    echo "Usage: ${SCRIPT} [-h|--help] [-d]"
+    echo "Usage: ${SCRIPT} [-h|--help] [-r|-b] [-d]"
 }
 
 print_help() {
@@ -63,6 +63,19 @@ print_help() {
     echo "        -d"
     echo "            Dry run. Echoes the commands which would be executed to "
     echo "            stdout but doesn't modify anything."
+    echo "        -b"
+    echo "            Creates a backup of everything in '/'. All directories,"
+    echo "            symlinks, hard links, permissions, mod times, ownerships,"
+    echo "            extended attributes, and executability will be preserved."
+    echo "        -r"
+    echo "            Prints the rsync command needed for restoring from a"
+    echo "            backup, but won't execute anything. The command may need"
+    echo "            to be modified if you don't want to clobber everything."
+    echo ""
+    echo "            ! [WARNING] Do NOT use -r and -b together—this may over-"
+    echo "            !           write all the data saved on the backup disk" 
+    echo "            !           with the current state of '/'. Especially"
+    echo "            !           dangerous if you're on a new install..."
     echo ""
 }
 
@@ -102,7 +115,7 @@ main() {
                 set +f
                 ;;
             r)
-                echo "Modify this command and run it to restore:"     
+                echo -e 'Modify this command (if needed) and run it manually:\n' 
                 echo='echo'
                 src="${REMOTE}"
                 dest="${LOCAL}"
@@ -129,7 +142,6 @@ backup() {
     done
 
     # https://wiki.archlinux.org/title/rsync#Full_system_backup
-
     $echo rsync \
         $dry_run \
         --archive \
