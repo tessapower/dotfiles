@@ -16,11 +16,8 @@ _script=$(basename "${0}")
 readonly SCRIPT="${_script}"
 unset _script
 
-readonly BACKUP_SRC='/home'
-readonly BACKUP_DEST='/run/media/tp/backup/home'
-
-readonly RESTORE_SRC='/run/media/tp/backup/home'
-readonly RESTORE_DEST='/home'
+readonly LOCAL='/home'
+readonly REMOTE='/run/media/tp/backup/home'
 
 #declare -a ALWAYS_EXCLUDE=(
 #    '/lost+found'
@@ -40,8 +37,8 @@ readonly RESTORE_DEST='/home'
 #	'/home/*/.local/share/Trash/*'
 #)
 
-readonly ALWAYS_EXCLUDE='/lost+found:'
-readonly BACKUP_EXCLUDE='/dev/*:/sys/*:/proc/*:/tmp/*:/run/*/mnt/*:/media/*:/var/lib/dhcpcd/*:/home/*/.thumbnails/*:/home/*/.cache/mozilla/*:/home/*/.cache/chromium/*:/home/*/.local/share/Trash/*:'
+readonly ALWAYS_EXCLUDE='/lost+found'
+readonly BACKUP_EXCLUDE='/dev/*:/sys/*:/proc/*:/tmp/*:/run/*/mnt/*:/media/*:/var/lib/dhcpcd/*:/home/*/.thumbnails/*:/home/*/.cache/mozilla/*:/home/*/.cache/chromium/*:/home/*/.local/share/Trash/*'
 
 ###############################################################################
 # HELP
@@ -98,13 +95,13 @@ main() {
                 dry_run='--dry-run'
                 ;;
             b)
-                src="${BACKUP_SRC}"
-                dest="${BACKUP_DEST}"
-                exclusions="${ALWAYS_EXCLUDE}${BACKUP_EXCLUDE}"
+                src="${LOCAL}"
+                dest="${REMOTE}"
+                exclusions="${ALWAYS_EXCLUDE}:${BACKUP_EXCLUDE}"
                 ;;
             r)
-                src="${RESTORE_SRC}"
-                dest="${RESTORE_DEST}"
+                src="${REMOTE}"
+                dest="${LOCAL}"
                 exclusions="${ALWAYS_EXCLUDE}"
                 ;;
             *)
@@ -121,11 +118,11 @@ main() {
 backup() {
     local exclusions=''
     
-    set -f; IFS=':'
-    for dir in ${1}; do
+    set -f
+    for dir in ${1//:/$IFS}; do
         exclusions="${exclusions} --exclude=${dir}"
     done
-    set +f; unset IFS
+    set +f
 
     local src="${2}"
     local dest="${3}"
