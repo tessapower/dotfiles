@@ -22,23 +22,26 @@ readonly BACKUP_DEST='/run/media/tp/backup/home'
 readonly RESTORE_SRC='/run/media/tp/backup/home'
 readonly RESTORE_DEST='/home'
 
-declare -a ALWAYS_EXCLUDE=(
-    '/lost+found'
-)
-declare -a BACKUP_EXCLUDE=(
-	'/dev/*'
-	'/sys/*'
-	'/proc/*'
-	'/tmp/*'
-	'/run/*'
-	'/mnt/*'
-	'/media/*'
-	'/var/lib/dhcpcd/*'
-	'/home/*/.thumbnails/*'
-	'/home/*/.cache/mozilla/*'
-	'/home/*/.cache/chromium/*'
-	'/home/*/.local/share/Trash/*'
-)
+#declare -a ALWAYS_EXCLUDE=(
+#    '/lost+found'
+#)
+#declare -a BACKUP_EXCLUDE=(
+#	'/dev/*'
+#	'/sys/*'
+#	'/proc/*'
+#	'/tmp/*'
+#	'/run/*'
+#	'/mnt/*'
+#	'/media/*'
+#	'/var/lib/dhcpcd/*'
+#	'/home/*/.thumbnails/*'
+#	'/home/*/.cache/mozilla/*'
+#	'/home/*/.cache/chromium/*'
+#	'/home/*/.local/share/Trash/*'
+#)
+
+readonly ALWAYS_EXCLUDE='/lost+found:'
+readonly BACKUP_EXCLUDE='/dev/*:/sys/*:/proc/*:/tmp/*:/run/*/mnt/*:/media/*:/var/lib/dhcpcd/*:/home/*/.thumbnails/*:/home/*/.cache/mozilla/*:/home/*/.cache/chromium/*:/home/*/.local/share/Trash/*:'
 
 ###############################################################################
 # HELP
@@ -95,13 +98,15 @@ main() {
                 dry_run='--dry-run'
                 ;;
             b)
-            	src="${BACKUP_SRC}"
-            	dest="${BACKUP_DEST}"
-            	exclusions=$BACKUP_EXCLUDE
-            	;;
-            r)	src="${RESTORE_SRC}"
-            	dest="${RESTORE_DEST}"
-            	;;
+                src="${BACKUP_SRC}"
+                dest="${BACKUP_DEST}"
+                exclusions="${ALWAYS_EXCLUDE}${BACKUP_EXCLUDE}"
+                ;;
+            r)
+                src="${RESTORE_SRC}"
+                dest="${RESTORE_DEST}"
+                exclusions="${ALWAYS_EXCLUDE}"
+                ;;
             *)
                 print_usage >&2
                 return 1
@@ -110,20 +115,18 @@ main() {
     done
     shift $((OPTIND-1))
 
-    backup $exclusions "${src}" "${dest}"
+    backup "${exclusions}" "${src}" "${dest}"
 }
 
 backup() {
     local exclusions=''
     
-    for dir in "${1}"; do
+    set -f; IFS=':'
+    for dir in ${1}; do
         exclusions="${exclusions} --exclude=${dir}"
     done
+    set +f; unset IFS
 
-	for dir in "${ALWAYS_EXCLUDE[@]}"; do
-		exclusions="${exclusions} --exclude=${dir}"
-	done
-    
     local src="${2}"
     local dest="${3}"
 
@@ -131,15 +134,15 @@ backup() {
     echo rsync \
         $dry_run \
         --archive \
-		--acls \
-		--delete \
-		--hard-links \
-		--info=progress2 \
-		--numeric-ids \
-		--xattrs \
-		$exclusions \
-		$src \
-		$dest
+        --acls \
+        --delete \
+        --hard-links \
+        --info=progress2 \
+        --numeric-ids \
+        --xattrs \
+        $exclusions \
+        $src \
+        $dest
 }
 
 
