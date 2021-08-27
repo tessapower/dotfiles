@@ -23,18 +23,18 @@ readonly -a ALWAYS_EXCLUDE=(
     '/lost+found'
 )
 readonly -a BACKUP_EXCLUDE=(
-	'/dev/*'
-	'/sys/*'
-	'/proc/*'
-	'/tmp/*'
-	'/run/*'
-	'/mnt/*'
-	'/media/*'
-	'/var/lib/dhcpcd/*'
-	'/home/*/.thumbnails/*'
-	'/home/*/.cache/mozilla/*'
-	'/home/*/.cache/chromium/*'
-	'/home/*/.local/share/Trash/*'
+    '/dev/*'
+    '/sys/*'
+    '/proc/*'
+    '/tmp/*'
+    '/run/*'
+    '/mnt/*'
+    '/media/*'
+    '/var/lib/dhcpcd/*'
+    '/home/*/.thumbnails/*'
+    '/home/*/.cache/mozilla/*'
+    '/home/*/.cache/chromium/*'
+    '/home/*/.local/share/Trash/*'
 )
 
 
@@ -50,11 +50,12 @@ print_help() {
     echo "Usage: ${SCRIPT} [-h|--help] [-d]"
     echo ""
     echo "    Description:"
-    echo "        Creates an archived backup of everything in '/'. All"
-    echo "        directories, symlinks, hard links, permissions, mod times,"
-    echo "        ownerships, extended attributes, and executability will"
-    echo "        be preserved. Files that have not changed since the last"
-    echo "        backup will not be copied."
+    echo "        Creates or restores an archived backup of everything in '/'."
+    echo "        All directories, symlinks, hard links, permissions, mod"
+    echo "        times, ownerships, extended attributes, and executability"
+    echo "        will be preserved. Files that have not changed since the"
+    echo "        last backup will not be copied. Any files that have since"
+    echo "        been removed locally will also be removed from the backup."
     echo ""  
     echo "    Options:"
     echo "        --help | -h"
@@ -95,13 +96,16 @@ main() {
             b)
                 src="${LOCAL}"
                 dest="${REMOTE}"
-                exclusions+=("${BACKUP_EXCLUDE[@]}")
-                exclusions+=("${ALWAYS_EXCLUDE[@]}")
+                set -f
+                exclusions=( ${BACKUP_EXCLUDE[@]} ${ALWAYS_EXCLUDE[@]} )
+                set +f
                 ;;
             r)
                 src="${REMOTE}"
                 dest="${LOCAL}"
-                exclusions+=("${ALWAYS_EXCLUDE[@]}")
+                set -f
+                exclusions=( ${ALWAYS_EXCLUDE[@]} )
+                set +f
                 ;;
             *)
                 print_usage >&2
