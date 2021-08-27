@@ -83,6 +83,7 @@ main() {
     local dry_run=''
     local src=''
     local dest=''
+    local echo=''
     local -a exclusions
     while getopts ":hdbr" o; do
         case "${o}" in
@@ -101,6 +102,8 @@ main() {
                 set +f
                 ;;
             r)
+                echo "Modify this command and run it to restore:"     
+                echo='echo'
                 src="${REMOTE}"
                 dest="${LOCAL}"
                 set -f
@@ -126,7 +129,8 @@ backup() {
     done
 
     # https://wiki.archlinux.org/title/rsync#Full_system_backup
-    echo rsync \
+
+    $echo rsync \
         $dry_run \
         --archive \
         --acls \
