@@ -12,7 +12,7 @@ export EDITOR=vim
 # ZSH CONFIGURATION
 ################################################################################
 
-export ZSH="/home/tp/.oh-my-zsh"
+export ZSH="/home/tessa-ssd/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
 USE_POWERLINE="true"
@@ -37,6 +37,7 @@ plugins=(
   themes
   zsh-autosuggestions
   zsh-completions
+  zsh-syntax-highlighting
 )
 
 # Offer to install missing package if command is not found
@@ -67,5 +68,4 @@ alias clip="xclip -sel clip"
 
 autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
-source /home/tp/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

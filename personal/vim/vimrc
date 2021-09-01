@@ -101,9 +101,6 @@ endif
 "
 "" Uniform Background for Vim Diffs
 "let g:nord_uniform_diff_background = 1
-"
-"" Italic Comments
-"let g:nord_italic_comments = 1
 
 " }}}
 
@@ -115,7 +112,6 @@ endif
 let g:lightline = {'colorscheme' : 'everforest'}
 
 " let g:everforest_background = 'dark'
-let g:everforest_enable_italic = 1
 let g:everforest_ui_contrast = 'high'
 set background=dark
 "set background=light
@@ -129,7 +125,6 @@ set background=dark
 "let g:lightline = {'colorscheme': 'onedark'}
 "
 "let g:onedark_termcolors = 256
-"let g:onedark_terminal_italics = 1
 "
 "set background=dark
 
