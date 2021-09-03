@@ -109,11 +109,11 @@ endif
 " ============================================================================
 
 " Lightline Colorscheme
-let g:lightline = {'colorscheme' : 'everforest'}
+" let g:lightline = {'colorscheme' : 'everforest'}
 
 " let g:everforest_background = 'dark'
-let g:everforest_ui_contrast = 'high'
-set background=dark
+" let g:everforest_ui_contrast = 'high'
+" set background=dark
 "set background=light
 
 " }}}
@@ -122,14 +122,14 @@ set background=dark
 " CUSTOM COLORSCHEME BLOCK (ONEDARK) {{{
 " ============================================================================
 
-"let g:lightline = {'colorscheme': 'onedark'}
-"
-"let g:onedark_termcolors = 256
-"
-"set background=dark
+let g:lightline = {'colorscheme': 'onedark'}
+
+let g:onedark_termcolors = 256
+
+set background=dark
 
 " }}}
 
 " Set Color Scheme
-colorscheme everforest
+colorscheme onedark
 
