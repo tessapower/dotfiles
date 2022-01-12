@@ -12,7 +12,7 @@ export EDITOR=vim
 # ZSH CONFIGURATION
 ################################################################################
 
-export ZSH="/home/tessa/.oh-my-zsh"
+export ZSH="/home/tpower/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
 USE_POWERLINE="true"
