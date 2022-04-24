@@ -1,33 +1,37 @@
 [core]
-    editor = /usr/bin/vim
-    pager = less -x4
-    excludesfile = ~/.gitignore_global
-    whitespace = trailing-space,space-before-tab,blank-at-eol
-    precomposeunicode = true
+  editor = /usr/bin/vim
+  pager = less -x4
+  excludesfile = ~/.gitignore_global
+  whitespace = trailing-space,space-before-tab,blank-at-eol
+  precomposeunicode = true
+	autocrlf = false
+	eol = lf
 [apply]
-    whitespace = warn
+  whitespace = warn
 [merge]
-    tool = opendiff
+  tool = opendiff
 [credential "https://github.com"]
-    helper = !/usr/bin/gh auth git-credential
+  helper = !/usr/bin/gh auth git-credential
 [user]
-    name = Tessa Power
-    email = tessa@tessapower.co
+  name = Tessa Power
+  email = tessa@tessapower.co
 [color]
-    status = auto
-    branch = auto
-    ui = auto
+  status = auto
+  branch = auto
+  ui = auto
 [push]
-    default = upstream
+  default = upstream
 [pull]
-    default = current
-    rebase = true
+  default = current
+  rebase = true
 [init]
-    defaultBranch = main
+	defaultBranch = main
 [commit]
 [gpg]
 [filter "lfs"]
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
-    clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+[oh-my-zsh]
+	hide-dirty = 1
