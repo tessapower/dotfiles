@@ -15,6 +15,7 @@
 [user]
   name = Tessa Power
   email = tessa@tessapower.co
+	signingkey = EBB2CC5131D162EA
 [color]
   status = auto
   branch = auto
@@ -27,6 +28,7 @@
 [init]
 	defaultBranch = main
 [commit]
+	gpgsign = false
 [gpg]
 [filter "lfs"]
   smudge = git-lfs smudge -- %f
