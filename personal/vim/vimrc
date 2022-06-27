@@ -87,49 +87,49 @@ endif
 " ============================================================================
 
 " Nord Theme Overrides and Customisations
-"augroup nord-theme-overrides
-"  autocmd!
-"  " Use 'nord7' for comments
-"  autocmd ColorScheme nord highlight Comment ctermfg=14 guifg=#8fbcbb
-"augroup END
-"
-"" Active Cursor Line Number Background
-"let g:nord_cursor_line_number_background = 1
-"
-"" Solid Vertical Split
-"let g:nord_bold_vertical_split_line = 1
-"
-"" Uniform Background for Vim Diffs
-"let g:nord_uniform_diff_background = 1
+augroup nord-theme-overrides
+  autocmd!
+  " Use 'nord7' for comments
+  autocmd ColorScheme nord highlight Comment ctermfg=14 guifg=#8fbcbb
+augroup END
+
+" Active Cursor Line Number Background
+let g:nord_cursor_line_number_background = 1
+
+" Solid Vertical Split
+let g:nord_bold_vertical_split_line = 1
+
+" Uniform Background for Vim Diffs
+let g:nord_uniform_diff_background = 1
 
 " }}}
 
 " ============================================================================
 " CUSTOM COLORSCHEME BLOCK (EVERFOREST) {{{
 " ============================================================================
-
+"
 " Lightline Colorscheme
 " let g:lightline = {'colorscheme' : 'everforest'}
-
+"
 " let g:everforest_background = 'dark'
 " let g:everforest_ui_contrast = 'high'
 " set background=dark
 "set background=light
-
+"
 " }}}
-
+"
 " ============================================================================
 " CUSTOM COLORSCHEME BLOCK (ONEDARK) {{{
 " ============================================================================
-
-let g:lightline = {'colorscheme': 'onedark'}
-
-let g:onedark_termcolors = 256
-
-set background=dark
-
+"
+" let g:lightline = {'colorscheme': 'onedark'}
+"
+" let g:onedark_termcolors = 256
+"
+" set background=dark
+"
 " }}}
 
 " Set Color Scheme
-colorscheme onedark
+colorscheme nord
 
