@@ -1,21 +1,30 @@
 [core]
   editor = /usr/bin/vim
-  pager = less -x4
+  pager = delta
   excludesfile = ~/.gitignore_global
   whitespace = trailing-space,space-before-tab,blank-at-eol
   precomposeunicode = true
-	autocrlf = false
-	eol = lf
+  autocrlf = false
+  eol = lf
+[interactive]
+  diffFilter = delta --color-only
+[diff]
+  colorMoved = default
+[delta]
+  features = decorations
+  navigate = true
+  syntax-theme = nord
+  line-numbers = true
 [apply]
   whitespace = warn
 [merge]
-  tool = opendiff
+  conflictstyle = diff3
 [credential "https://github.com"]
   helper = !/usr/bin/gh auth git-credential
 [user]
   name = Tessa Power
   email = tessa@tessapower.co
-	signingkey = EBB2CC5131D162EA
+  signingkey = EBB2CC5131D162EA
 [color]
   status = auto
   branch = auto
@@ -26,14 +35,18 @@
   default = current
   rebase = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [commit]
-	gpgsign = false
+  gpgsign = true
 [gpg]
+  program = gpg
+[init]
+  defaultBranch = main
 [filter "lfs"]
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
   clean = git-lfs clean -- %f
 [oh-my-zsh]
-	hide-dirty = 1
+  hide-dirty = 1
+
