@@ -70,6 +70,10 @@ alias bat="batcat"
 alias cddev="cd /mnt/c/Users/tessa/Developer/"
 alias cdcurr="cd /mnt/c/Users/tessa/Developer/TEngine"
 
+batdiff() {
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
 ################################################################################
 # ZSH INITIALISATION
 ################################################################################
