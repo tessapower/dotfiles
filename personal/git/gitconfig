@@ -13,7 +13,7 @@
 [delta]
   features = decorations
   navigate = true
-  syntax-theme = nord
+  syntax-theme = Nord
   line-numbers = true
 [apply]
   whitespace = warn
