@@ -82,10 +82,76 @@ alias zshconfig="mate ~/.zshrc"
 alias clip="xclip -sel clip"
 alias bat="batcat"
 alias cddev="cd /mnt/c/Users/tessa/Developer/"
+alias cdnotes="cd /mnt/c/Users/tessa/Developer/obsidian-vault"
+alias cddots="cd /mnt/c/Users/tessa/Developer/dotfiles"
 alias cdcurr="cd /mnt/c/Users/tessa/Developer/TEngine"
+alias cdcgra="cd /mnt/c/Users/tessa/Developer/cgra151-graphics"
+alias notugly="clang-format -i -style=Google"
+alias font-test="echo -e '\e[1mbold\e[0m\n\e[3mitalic\e[0m\n\e[4munderline\e[0m\n\e[9mstrikethrough\e[0m'"
 
 batdiff() {
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
+###############################################################################
+# Sit/Stand Timer
+################################################################################
+
+# Sitting. Set a 20 min timer before transitioning to stand.
+# http://ergo.human.cornell.edu/CUESitStand.html
+sitting() {
+    timer_announce $(( 20 * 60 )) "Time to stand up"
+}
+
+# Standing. Set an 8 min timer before transitioning to walking around a bit.
+# http://ergo.human.cornell.edu/CUESitStand.html
+standing() {
+    timer_announce $(( 8 * 60 )) "Time to walk around a bit"
+    # Start a stop watch to keep track if walking around runs over
+      stopwatch
+}
+
+# Walking. Set a 2 min timer before transitioning to sitting.
+# http://ergo.human.cornell.edu/CUESitStand.html
+walking() {
+    timer_announce $(( 2 * 60 )) "Time to sit down"
+}
+
+stopwatch() {
+    start=$(date +%s)
+    while true; do
+        time="$(( $(date +%s) - $start))"
+        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        sleep 0.1
+    done
+}
+
+# Play an announcement sound and display message after a timer (seconds) elapses.
+# $1: duration (secs)
+# $2: terminal message
+timer_announce() {
+    if [[ $# -ne 2 ]]; then
+        echo "usage: timer_sound duration msg" >&2
+        return 1
+    fi
+
+    sleep $1
+    echo "${2}"
+
+    case "${OS}" in
+        'darwin')
+            say "${2}"
+            ;;
+        'arch')
+            echo "TODO..." >&2
+            ;;
+        'WSL2')
+            powershell.exe "Add-Type -AssemblyName System.speech;\$speak=New-Object System.Speech.Synthesis.SpeechSynthesizer;\$speak.SelectVoice(\"Microsoft Zira Desktop\");\$speak.Speak(\"${2}\")"
+            ;;
+        *)
+            echo "unsupported OS" >&2
+        ;;
+    esac
 }
 
 ################################################################################
