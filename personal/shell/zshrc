@@ -8,6 +8,20 @@ export LESSCHARSET=UTF-8
 export EDITOR=nvim
 export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
 
+# Assign $OS the value of either 'darwin', 'arch', or 'WSL2'.
+# This is useful for scripts to use later.
+if [[ "$(uname | tr '[A-Z]' '[a-z]')" == 'darwin' ]]; then
+    export OS='darwin'
+elif uname -r | grep --quiet arch; then
+    export OS='arch'
+elif uname -r | grep --quiet WSL2; then
+    export OS='WSL2'
+else
+    echo 'Unknown OS' >&2
+    print_usage
+    exit 1
+fi
+
 ################################################################################
 # ZSH CONFIGURATION
 ################################################################################
