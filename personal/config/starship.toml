@@ -9,11 +9,6 @@ command_timeout = 5000
 
 # Battery: shows how charged the device's battery is and its current charging
 # status. The module is only visible when the device's battery is below 10%.
-[battery]
-full_symbol = "🔋 "
-charging_symbol = "⚡️ "
-discharging_symbol = "💀 "
-
 [[battery.display]]
 threshold = 20
 style = "bold red"
@@ -22,11 +17,7 @@ style = "bold red"
 [character]
 success_symbol = "[ʃ](bold green) "
 error_symbol = "[✗](bold red) "
-vicmd_symbol = "[V](bold blue) "
-
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+vicmd_symbol = "[](bold blue) "
 
 [directory]
 # Show at most the current and parent directory
@@ -35,9 +26,80 @@ truncation_length = 1
 truncate_to_repo = false
 # Show that we're in a truncated dir
 truncation_symbol = "…/"
+# Change read only symbol
+read_only = " "
+style = "bold blue"
+
+[directory.substitutions]
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"Important  " = "  "
 
 [git_status]
+style = "bold yellow"
+ahead = ""
+behind = ""
+modified = ""
+stashed = ""
+untracked = ""
 # Use this (Linux) path to a Windows Starship executable to render git_status
 # when on Windows paths in WSL
-windows_starship = "/mnt/c/Users/tessa/scoop/apps/starship/1.9.1/starship.exe"
+# windows_starship = "/mnt/c/Users/tessa/scoop/apps/starship/1.9.1/starship.exe"
+
+[git_branch]
+style = "bold cyan"
+symbol = " "
+
+# NerdFont Symbols
+[c]
+symbol = " "
+
+[java]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+# Explicitly disable everything else to make things fast!
+
+[aws]
+disabled = true
+
+[azure]
+disabled = true
+
+[conda]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[golang]
+disabled = true
+
+[haskell]
+disabled = true
+
+[julia]
+disabled = true
+
+[nim]
+disabled = true
+
+[package]
+disabled = true
+
+[rust]
+disabled = true
 
