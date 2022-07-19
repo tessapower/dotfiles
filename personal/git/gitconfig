@@ -1,5 +1,5 @@
 [core]
-  editor = /usr/bin/vim
+  editor = /usr/bin/nvim
   pager = delta
   excludesfile = ~/.gitignore_global
   whitespace = trailing-space,space-before-tab,blank-at-eol
@@ -37,7 +37,7 @@
 [init]
   defaultBranch = main
 [commit]
-  gpgsign = true
+  gpgsign = false
 [gpg]
   program = gpg
 [init]
