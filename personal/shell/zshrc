@@ -222,8 +222,20 @@ timer_announce() {
 autoload -Uz compinit
 compinit
 
+eval "$(starship init zsh)"
+
 # zsh-autosuggestions:     https://github.com/zsh-users/zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Must come at end of zshrc
 
-eval "$(starship init zsh)"
+case "${OS}" in
+    'darwin') ZSH_SHARE=/usr/local/share
+        ;;
+    'arch')
+        ;;
+    'WSL2') ZSH_SHARE=~/.zsh
+esac
+
+source "${ZSH_SHARE}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "${ZSH_SHARE}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
