@@ -26,9 +26,6 @@ fi
 # ZSH CONFIGURATION
 ################################################################################
 
-export ZSH="/home/tpower/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-
 USE_POWERLINE="true"
 CASE_SENSITIVE="true"
 DISABLE_UPDATE_PROMPT="true"
@@ -43,6 +40,7 @@ export LS_COLORS
 
 # zsh-completions:         https://github.com/zsh-users/zsh-completions
 # zsh-autosuggestions:     https://github.com/zsh-users/zsh-autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-syntax-highlighting: https://github.com/zsh-users/zsh-syntax-highlighting
 
 plugins=(
@@ -61,6 +59,11 @@ if [[ -r /usr/share/zsh/functions/command-not-found.zsh ]]; then
     export PKGFILE_PROMPT_INSTALL_MISSING=1
 fi
 
+################################################################################
+# STARSHIP PROMPT
+################################################################################
+
+export STARSHIP_CONFIG=~/example/non/default/path/starship.toml
 
 ################################################################################
 # PATHS
@@ -155,7 +158,7 @@ timer_announce() {
 # ZSH INITIALISATION
 ################################################################################
 
-source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-autoload -U compinit && compinit
-source $ZSH/oh-my-zsh.sh
+autoload -U +X bashcompinit && bashcompinit
+
+eval "$(starship init zsh)"
 
