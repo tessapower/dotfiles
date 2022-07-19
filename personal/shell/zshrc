@@ -47,8 +47,6 @@ LS_COLORS='rs=0:di=0;35:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd
 export LS_COLORS
 
 # zsh-completions:         https://github.com/zsh-users/zsh-completions
-# zsh-autosuggestions:     https://github.com/zsh-users/zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-syntax-highlighting: https://github.com/zsh-users/zsh-syntax-highlighting
 
 plugins=(
@@ -221,7 +219,11 @@ timer_announce() {
 # ZSH INITIALISATION
 ################################################################################
 
-autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit
+compinit
+
+# zsh-autosuggestions:     https://github.com/zsh-users/zsh-autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 eval "$(starship init zsh)"
 
