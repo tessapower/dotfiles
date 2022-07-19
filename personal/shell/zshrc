@@ -211,7 +211,30 @@ timer_announce() {
     esac
 
     # Start a stopwatch to track how long I've gone over
-    stopwatch 
+    stopwatch
+}
+
+open() {
+    if [[ $# -ne 1 ]]; then
+        echo "usage: open file" >&2
+        return 1
+    fi
+
+    # Get fully qualified path
+    # Replace /mnt/c/ with "C:\"
+    # Try to open
+    local file = ${1}
+
+    case "${OS}" in
+        'WSL2')
+            echo "TODO: ..."
+            echo "powershell.exe \"Invoke-Item \"${1}\"\""
+            ;;
+        *)
+            echo "unsupported OS" >&2
+        ;;
+    esac
+
 }
 
 
