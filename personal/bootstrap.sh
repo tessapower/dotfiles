@@ -29,6 +29,7 @@ declare -a FILES=(
   'tty/alacritty/alacritty.yml -> ~/.config/alacritty/alacritty.yml'
   'vim/autoload/plug.vim       -> ~/.vim/autoload/plug.vim'
   'vim/vimrc                   -> ~/.vimrc'
+  'config/starship.toml        -> ~/.config/starship.toml'
   'bin                         -> ~/bin'
 )
 

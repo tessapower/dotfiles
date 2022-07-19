@@ -1,0 +1,27 @@
+# et editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character] # The name of the module we are configuring is "character"
+success_symbol = "[∫](bold green)" # The "success_symbol" segment is being set to "∫" with the color "bold green"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[directory]
+# Show at most the current and parent directory
+truncation_length = 1
+# Don't override the truncation length when in a git repo
+truncate_to_repo = false
+# Show that we're in a truncated dir
+truncation_symbol = "…/"
+
+[git_status]
+# Use this (Linux) path to a Windows Starship executable to render git_status
+# when on Windows paths in WSL
+windows_starship = "/mnt/c/Users/tessa/scoop/apps/starship/1.9.1/starship.exe"
+
