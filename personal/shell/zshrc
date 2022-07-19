@@ -2,6 +2,7 @@
 # SHELL
 ################################################################################
 
+export SCM="${HOME}/Developer"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LESSCHARSET=UTF-8
@@ -84,11 +85,11 @@ export GPG_TTY=$(tty)
 alias zshconfig="mate ~/.zshrc"
 alias clip="xclip -sel clip"
 alias bat="batcat"
-alias cddev="cd /mnt/c/Users/tessa/Developer/"
-alias cdnotes="cd /mnt/c/Users/tessa/Developer/obsidian-vault"
-alias cddots="cd /mnt/c/Users/tessa/Developer/dotfiles"
-alias cdcurr="cd /mnt/c/Users/tessa/Developer/TEngine"
-alias cdcgra="cd /mnt/c/Users/tessa/Developer/cgra151-graphics"
+alias cddev="cd ${SCM}"
+alias cdnotes="cd ${SCM}/obsidian-vault"
+alias cddots="cd ${SCM}/dotfiles/personal"
+alias cdcurr="cd ${SCM}/TEngine"
+alias cdcgra="cd ${SCM}/cgra151-graphics"
 alias notugly="clang-format -i -style=Google"
 alias font-test="echo -e '\e[1mbold\e[0m\n\e[3mitalic\e[0m\n\e[4munderline\e[0m\n\e[9mstrikethrough\e[0m'"
 
