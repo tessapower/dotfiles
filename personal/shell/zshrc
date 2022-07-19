@@ -97,6 +97,24 @@ batdiff() {
     git diff --name-only --relative --diff-filter=d | xargs bat --diff
 }
 
+
+###############################################################################
+# STANFORD QUICKJUMP
+################################################################################
+
+# usage: cs106b ch08
+cs106b() {
+    if [[ $# -ne 1 ]]; then
+        echo "usage: cs106b dir" >&2
+        return 1
+    fi
+
+    local CS106B=${SCM}/stanford-cs106b/programming-abstractions-cpp
+
+    cd "$(find $CS106B -maxdepth 1 -name "*${1}*" -print)"
+}
+
+
 ###############################################################################
 # SIT/STAND TIMER
 ################################################################################
