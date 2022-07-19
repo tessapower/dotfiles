@@ -1,15 +1,28 @@
-# et editor completions based on the config schema
+# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
 add_newline = true
 
 # Timeout for commands executed by starship (in ms)
-command_timeout=5000
+command_timeout = 5000
 
-# Replace the "❯" symbol in the prompt with "➜"
-[character] # The name of the module we are configuring is "character"
-success_symbol = "[∫](bold green)" # The "success_symbol" segment is being set to "∫" with the color "bold green"
+# Battery: shows how charged the device's battery is and its current charging
+# status. The module is only visible when the device's battery is below 10%.
+[battery]
+full_symbol = "🔋 "
+charging_symbol = "⚡️ "
+discharging_symbol = "💀 "
+
+[[battery.display]]
+threshold = 20
+style = "bold red"
+
+# Shows a character beside where the text is entered in the terminal
+[character]
+success_symbol = "[ʃ](bold green) "
+error_symbol = "[✗](bold red) "
+vicmd_symbol = "[V](bold blue) "
 
 # Disable the package module, hiding it from the prompt completely
 [package]
