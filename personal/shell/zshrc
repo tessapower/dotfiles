@@ -69,7 +69,7 @@ fi
 # STARSHIP PROMPT
 ################################################################################
 
-export STARSHIP_CONFIG=~/example/non/default/path/starship.toml
+export STARSHIP_CONFIG=~/.config/starship.toml
 
 ################################################################################
 # PATHS
