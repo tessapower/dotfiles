@@ -3,6 +3,8 @@
 ################################################################################
 
 export SCM="${HOME}/Developer"
+export DROPBOX="${HOME}/Dropbox"
+export CURR_SEM="_2022-T2"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LESSCHARSET=UTF-8
@@ -153,6 +155,23 @@ cs106b() {
     local CS106B=${SCM}/stanford-cs106b/programming-abstractions-cpp
 
     cd "$(find $CS106B -maxdepth 1 -name "*${1}*" -print)"
+}
+
+
+###############################################################################
+# VUW STUDY QUICKJUMP
+################################################################################
+
+# usage: vuw coursecode
+vuw() {
+    if [[ $# -ne 1 ]]; then
+        echo "usage: vuw coursecode" >&2
+        return 1
+    fi
+
+    local COURSE="${DROPBOX}/Family Room/Study/${CURR_SEM}/"
+
+    cd "$(find $COURSE -maxdepth 1 -iname "*${1}*" -print)"
 }
 
 
