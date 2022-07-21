@@ -233,21 +233,27 @@ timer_announce() {
     stopwatch
 }
 
-open() {
+o() {
     if [[ $# -ne 1 ]]; then
-        echo "usage: open file" >&2
+        echo "usage: o file" >&2
         return 1
     fi
 
     # Get fully qualified path
-    # Replace /mnt/c/ with "C:\"
-    # Try to open
-    local file = ${1}
+    if ! realpath --canonicalize-existing --quiet "${1}" &> /dev/null; then
+        echo "cannot locate ${1}"
+        return 1
+    fi
 
+    local linux_path=$(realpath --canonicalize-existing --quiet "${1}")
+
+    # Remove Linux root path
+    local fq_path=$(echo $linux_path | sed 's;^/mnt/c;;g')
+
+    # Try to open
     case "${OS}" in
         'WSL2')
-            echo "TODO: ..."
-            echo "powershell.exe \"Invoke-Item \"${1}\"\""
+            powershell.exe "Invoke-Item \""C:${fq_path}"\""
             ;;
         *)
             echo "unsupported OS" >&2
