@@ -171,9 +171,9 @@ vuw() {
         return 1
     fi
 
-    local COURSE="${DROPBOX}/Family Room/Study/${CURR_SEM}/"
+    local COURSE_CODE="${DROPBOX}/Family Room/Study/${CURR_SEM}/"
 
-    cd "$(find $COURSE -maxdepth 1 -iname "*${1}*" -print)"
+    cd "$(find $COURSE_CODE -maxdepth 1 -iname "*${1}*" -print)"
 }
 
 
