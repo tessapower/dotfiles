@@ -4,7 +4,9 @@
 
 export SCM="${HOME}/Developer"
 export DROPBOX="${HOME}/Dropbox"
-export CURR_SEM="_2022-T2"
+export CURR_SEM="_2022-T2" # Directory for the current semester
+export dots="${SCM}/dotfiles"
+export study="${DROPBOX}/Family Room/Study/${CURR_SEM}"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LESSCHARSET=UTF-8
