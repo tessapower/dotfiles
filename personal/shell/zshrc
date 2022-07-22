@@ -2,16 +2,29 @@
 # SHELL
 ################################################################################
 
-export SCM="${HOME}/Developer"
-export DROPBOX="${HOME}/Dropbox"
-export CURR_SEM="_2022-T2" # Directory for the current semester
-export dots="${SCM}/dotfiles"
-export study="${DROPBOX}/Family Room/Study/${CURR_SEM}"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LESSCHARSET=UTF-8
+
+
+################################################################################
+# CONSTANTS
+################################################################################
+
 export EDITOR=nvim
 export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
+export SCM="${HOME}/Developer"
+export DROPBOX="${HOME}/Dropbox"
+
+
+################################################################################
+# CONVENIENT DIR LOCATIONS
+################################################################################
+
+export CURR_SEM="_2022-T2" # Directory for the current semester
+export dots="${SCM}/dotfiles"
+export study="${DROPBOX}/Family Room/Study/${CURR_SEM}"
+
 
 # Assign $OS the value of either 'darwin', 'arch', or 'WSL2'.
 # This is useful for scripts to use later.
