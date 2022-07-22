@@ -74,9 +74,10 @@ fi
 # ZSH CONFIGURATION
 ################################################################################
 
-USE_POWERLINE="true"
 CASE_SENSITIVE="true"
-DISABLE_UPDATE_PROMPT="true"
+export HISTFILE="${HOME}/.zsh_history"
+export HISTSIZE=12000
+export SAVEHIST=10000
 
 setopt nobeep                # No beep (grr)
 setopt autocd                # No need to type cd to... uh... cd
@@ -111,6 +112,11 @@ if [[ -r /usr/share/zsh/functions/command-not-found.zsh ]]; then
     source /usr/share/zsh/functions/command-not-found.zsh
     export PKGFILE_PROMPT_INSTALL_MISSING=1
 fi
+
+# ZSH Completions
+autoload -Uz compinit
+compinit
+
 
 ################################################################################
 # STARSHIP PROMPT
@@ -330,9 +336,6 @@ o() {
 ################################################################################
 # ZSH INITIALISATION
 ################################################################################
-
-autoload -Uz compinit
-compinit
 
 eval "$(starship init zsh)"
 
