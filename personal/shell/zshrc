@@ -51,6 +51,10 @@ path_append() {
 path_append "${HOME}/bin"
 
 
+################################################################################
+# OS
+################################################################################
+
 # Assign $OS the value of either 'darwin', 'arch', or 'WSL2'.
 # This is useful for scripts to use later.
 if [[ "$(uname | tr '[A-Z]' '[a-z]')" == 'darwin' ]]; then
@@ -64,6 +68,7 @@ else
     print_usage
     exit 1
 fi
+
 
 ################################################################################
 # ZSH CONFIGURATION
