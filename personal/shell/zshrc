@@ -49,7 +49,9 @@ path_append() {
 
 # Must come early as other commands depend on utilities in here
 path_append "${HOME}/bin"
+path_append "${HOME}/.cargo/bin"
 
+# Please adapt and uncomment the following lines:
 
 ################################################################################
 # OS
@@ -347,7 +349,7 @@ o() {
 case "${OS}" in
     'darwin') ZSH_SHARE=/usr/local/share
         ;;
-    'arch')
+    'arch') ZSH_SHARE=~/.zsh
         ;;
     'WSL2') ZSH_SHARE=~/.zsh
 esac
