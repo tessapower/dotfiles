@@ -1,19 +1,17 @@
 # Tessa's Dotfiles
 
-These are my dotfiles. They aren't intended to be useful to anyone other than
-myself.
+These are my dotfiles. They aren't intended to be useful to anyone other than myself. I have a Windows 11 machine and for development I use WSL with Ubuntu. 
 
 ## Organization
 
-There are two directories, one for my personal Linux machine and one for my work MBP.
+Files in the `common` directory are things I tend to use across multiple machines.
 
-Files in these directories are organized by topic:
+Files in the `personal` directory are organized by topic:
 
+- **bin**: home-rolled shell scripts.
+- **config**: things that are usually found in the `.config` dir.
 - **git**: everything relating to git (aliases, configs, etc).
-- **manjaro**: Manjaro Linux specific settings.
 - **shell**: zsh and tmux configurations.
-- **tty**: everything related to terminal configuration (currently
-  [Alacritty](https://github.com/jwilm/alacritty)).
 - **vim**: vim configuration and plugins.
 
 ## bootstrap.sh
