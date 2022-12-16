@@ -50,6 +50,7 @@ path_append() {
 # Must come early as other commands depend on utilities in here
 path_append "${HOME}/bin"
 path_append "${HOME}/.cargo/bin"
+path_append "${HOME}/.rbenv/bin"
 
 # Please adapt and uncomment the following lines:
 
@@ -361,3 +362,5 @@ source "${ZSH_SHARE}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+eval "$(rbenv init -)"

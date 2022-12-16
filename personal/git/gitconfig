@@ -37,9 +37,9 @@
 [init]
   defaultBranch = main
 [commit]
-  gpgsign = false
+  gpgsign = true
 [gpg]
-  program = gpg
+  program = gpg2
 [init]
   defaultBranch = main
 [filter "lfs"]
