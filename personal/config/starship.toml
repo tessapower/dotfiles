@@ -5,7 +5,7 @@
 add_newline = true
 
 # Timeout for commands executed by starship (in ms)
-command_timeout = 5000
+command_timeout = 500
 
 # Battery: shows how charged the device's battery is and its current charging
 # status. The module is only visible when the device's battery is below 10%.
