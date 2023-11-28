@@ -1,0 +1,54 @@
+[core]
+  editor = C:/tools/neovim/nvim-win64/bin/nvim.exe
+  pager = delta
+  excludesfile = ~/.gitignore_global
+  whitespace = trailing-space,space-before-tab,blank-at-eol
+  precomposeunicode = true
+  autocrlf = false
+  eol = lf
+  sshCommand = 'C:/Program Files/OpenSSH-Win64/ssh.exe'
+  fsmonitor = true
+[interactive]
+  diffFilter = delta --color-only --dark --diff-highlight
+[diff]
+  colorMoved = default
+[delta]
+  features = unobtrusive-line-numbers decorations tangara-chilensis
+  navigate = true
+  syntax-theme = Nord
+  line-numbers = true
+  side-by-side = true
+[apply]
+  whitespace = warn
+[merge]
+  conflictstyle = diff3
+[user]
+  name = Tessa Power
+  email = tessa@tessapower.co
+  signingkey = EBB2CC5131D162EA
+[color]
+  status = auto
+  branch = auto
+  ui = auto
+[push]
+  default = upstream
+[pull]
+  default = current
+  rebase = true
+[init]
+  defaultBranch = main
+[commit]
+  gpgsign = true
+[gpg]
+  program = "C:/Program Files (x86)/GnuPG/bin/gpg.exe"
+[init]
+  defaultBranch = main
+[filter "lfs"]
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+[include]
+  path = ~/.config/delta/themes.gitconfig
+[credential]
+  helper = manager
