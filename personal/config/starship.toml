@@ -27,11 +27,11 @@ truncate_to_repo = false
 # Show that we're in a truncated dir
 truncation_symbol = "…/"
 # Change read only symbol
-read_only = " "
+read_only = " "
 style = "bold blue"
 
 [directory.substitutions]
-"Documents" = " "
+"Documents" = "󱔗 "
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
@@ -43,9 +43,9 @@ ahead = ""
 behind = ""
 conflicted = ""
 deleted = ""
-diverged = "נּ"
+diverged = "󰦻"
 modified = ""
-renamed = ""
+renamed = "󰑕"
 staged = ""
 stashed = ""
 untracked = ""
@@ -61,14 +61,20 @@ symbol = " "
 [c]
 symbol = " "
 
+[cmake]
+symbol = " cmake "
+
+[cpp]
+symbol = "󰙲 "
+
 [java]
 symbol = " "
 
 [memory_usage]
-symbol = " "
+symbol = "󰍛 "
 
 [nodejs]
-symbol = " "
+symbol = "󰎙 "
 
 # Explicitly disable everything else to make things fast!
 
