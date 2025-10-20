@@ -21,9 +21,7 @@ export DROPBOX="${HOME}/Dropbox"
 # CONVENIENT DIR LOCATIONS
 ################################################################################
 
-export CURR_SEM="_2022-T2" # Directory for the current semester
 export dots="${SCM}/dotfiles"
-export study="${DROPBOX}/Family Room/Study/${CURR_SEM}"
 
 
 ################################################################################
@@ -49,10 +47,7 @@ path_append() {
 
 # Must come early as other commands depend on utilities in here
 path_append "${HOME}/bin"
-path_append "${HOME}/.cargo/bin"
-path_append "${HOME}/.rbenv/bin"
 
-# Please adapt and uncomment the following lines:
 
 ################################################################################
 # OS
@@ -149,11 +144,8 @@ alias zshconfig="nvim ~/.zshrc" # Edit zsh config quickly
 alias clip="clip.exe"           # Add to Win11 clipboard
 alias bat="batcat"              # Nice bat
 
-alias cddev="cd ${SCM}"
 alias cdnotes="cd ${SCM}/obsidian-vault"
 alias cddots="cd ${SCM}/dotfiles/personal"
-alias cdcurr="cd ${SCM}/TEngine"
-alias cdcgra="cd ${SCM}/cgra151-graphics"
 
 # Run clang format, usage: notugly **/*.cpp
 alias notugly="clang-format -i -style=Google"
@@ -197,58 +189,6 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() {
     echo -ne '\e[5 q'
 } # Use beam shape cursor for each new prompt.
-
-
-
-###############################################################################
-# STANFORD QUICKJUMP
-################################################################################
-
-# usage: cs106b ch08
-cs106b() {
-    if [[ $# -ne 1 ]]; then
-        echo "usage: cs106b dir" >&2
-        return 1
-    fi
-
-    local CS106B=${SCM}/stanford-cs106b/programming-abstractions-cpp
-
-    cd "$(find $CS106B -maxdepth 1 -name "*${1}*" -print)"
-}
-
-
-###############################################################################
-# VUW STUDY QUICKJUMP
-################################################################################
-
-# usage: vuw coursecode
-vuw() {
-    if [[ $# -ne 1 ]]; then
-        echo "usage: vuw coursecode" >&2
-        return 1
-    fi
-
-    local COURSE_CODE="${DROPBOX}/Family Room/Study/${CURR_SEM}/"
-
-    cd "$(find $COURSE_CODE -maxdepth 1 -iname "*${1}*" -print)"
-}
-
-
-###############################################################################
-# CGRA ASSIGNMENTS QUICKJUMP
-################################################################################
-
-# usage: cgra dir
-cgra() {
-    if [[ $# -ne 1 ]]; then
-        echo "usage: cgra dir" >&2
-        return 1
-    fi
-
-    local DIR="${SCM}/cgra151-graphics/"
-
-    cd "$(find $DIR -iname "*${1}*" -print)"
-}
 
 
 ###############################################################################
@@ -347,20 +287,17 @@ o() {
 # ZSH INITIALISATION
 ################################################################################
 
-case "${OS}" in
-    'darwin') ZSH_SHARE=/usr/local/share
-        ;;
-    'arch') ZSH_SHARE=~/.zsh
-        ;;
-    'WSL2') ZSH_SHARE=~/.zsh
-esac
-
 # zsh-autosuggestions: https://github.com/zsh-users/zsh-autosuggestions
-source "${ZSH_SHARE}/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "${ZSH_SHARE}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
+# zsh-syntax-highlighting: https://github.com/zsh-users/zsh-syntax-highlighting
+if [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval "$(rbenv init -)"
