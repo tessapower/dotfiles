@@ -47,6 +47,9 @@ Plug 'sainnhe/everforest'
 " Vim One Theme
 Plug 'joshdick/onedark.vim'
 
+" Vim Catppuccin Theme
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+
 " Emoji Support
 Plug 'junegunn/vim-emoji'
   command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
@@ -131,5 +134,5 @@ let g:nord_uniform_diff_background = 1
 " }}}
 
 " Set Color Scheme
-colorscheme nord
+colorscheme catppuccin
 
