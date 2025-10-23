@@ -1,14 +1,22 @@
+# Starship Prompt Configuration
+# https://starship.rs/config/
+
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
 add_newline = true
 
-# Timeout for commands executed by starship (in ms)
-command_timeout = 500
+# OS indicator (shows different icon per OS)
+[custom.os_icon]
+command = "echo $STARSHIP_OS_ICON"
+when = "true"
+format = "[$output]($style)"
+style = "bold blue"
+disabled = false
 
-# Battery: shows how charged the device's battery is and its current charging
-# status. The module is only visible when the device's battery is below 10%.
+# Battery: shows how charged the device's battery is and its current charging(
+# status. The module is only visible when the device's battery is below 20%.
 [[battery.display]]
 threshold = 20
 style = "bold red"
@@ -21,27 +29,34 @@ vicmd_symbol = "[](bold blue) "
 
 [directory]
 # Show at most the current and parent directory
-truncation_length = 1
+truncation_length = 2
 # Don't override the truncation length when in a git repo
 truncate_to_repo = false
 # Show that we're in a truncated dir
 truncation_symbol = "…/"
 # Change read only symbol
-read_only = " "
-style = "bold blue"
+read_only = " "
+read_only_style = "red"
+format = "[$path]($style)[$read_only]($read_only_style) "
 
 [directory.substitutions]
 "Documents" = "󱔗 "
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
-"Important  " = "  "
+"Videos" = " "
+"Projects" = "󰏓 "
+"Developer" = "  "
+"Dropbox" = " "
+"OneDrive" = "󰏊 "
+"Favorites" = " "
+"scoop" = " "
 
 [git_status]
 style = "bold yellow"
 ahead = ""
 behind = ""
-conflicted = ""
+conflicted = ""
 deleted = ""
 diverged = "󰦻"
 modified = ""
@@ -75,6 +90,11 @@ symbol = "󰍛 "
 
 [nodejs]
 symbol = "󰎙 "
+
+[python]
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+symbol = " "
+style = "bold yellow"
 
 # Explicitly disable everything else to make things fast!
 
@@ -113,4 +133,3 @@ disabled = true
 
 [rust]
 disabled = true
-
