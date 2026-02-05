@@ -1,0 +1,71 @@
+#!/usr/bin/env zsh
+# macOS-specific ZSH config
+# Sourced after shell/shared/zshrc
+
+################################################################################
+# STARSHIP OS ICON
+################################################################################
+
+export STARSHIP_OS_ICON=""
+
+
+################################################################################
+# HOMEBREW
+################################################################################
+
+if [[ $(uname -m) == 'arm64' ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+
+################################################################################
+# ZSH PLUGINS (Homebrew paths)
+################################################################################
+
+if command -v brew &>/dev/null; then
+    _brew_prefix="$(brew --prefix)"
+
+    [[ -f "${_brew_prefix}/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+        source "${_brew_prefix}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+    [[ -f "${_brew_prefix}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+        source "${_brew_prefix}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+    unset _brew_prefix
+fi
+
+
+################################################################################
+# SIT/STAND TIMER
+################################################################################
+
+sitting() {
+    clear
+    timer_announce $(( 20 * 60 )) "Time to stand up"
+}
+
+standing() {
+    clear
+    timer_announce $(( 8 * 60 )) "Time to walk around a bit"
+}
+
+walking() {
+    clear
+    timer_announce $(( 2 * 60 )) "Time to sit down"
+}
+
+timer_announce() {
+    if [[ $# -ne 2 ]]; then
+        echo "usage: timer_announce duration msg" >&2
+        return 1
+    fi
+
+    timeout $1 countdown $1
+    printf "\033[2K\r%s\n" "${2}"
+
+    say "${2}"
+
+    stopwatch
+}

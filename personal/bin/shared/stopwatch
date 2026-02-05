@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Cross-platform stopwatch (no GNU date -d dependency)
+
+start=$(date +%s)
+while true; do
+    elapsed=$(( $(date +%s) - start ))
+    hours=$(( elapsed / 3600 ))
+    minutes=$(( (elapsed % 3600) / 60 ))
+    seconds=$(( elapsed % 60 ))
+    printf '%02d:%02d:%02d\r' "$hours" "$minutes" "$seconds"
+    sleep 0.1
+done

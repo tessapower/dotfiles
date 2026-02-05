@@ -50,6 +50,13 @@ Plug 'joshdick/onedark.vim'
 " Vim Catppuccin Theme
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
+" Vim Rose Pine Theme
+Plug 'rose-pine/vim', { 'as': 'rose-pine' }
+
+" Werewolf: supports changing color
+Plug 'jonstoler/werewolf.vim'
+
+
 " Emoji Support
 Plug 'junegunn/vim-emoji'
   command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g

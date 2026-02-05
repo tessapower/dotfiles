@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
 # Fail fast and fail early.
-#   - Abort script at first error
-#   - Attempts to use undefined variable outputs error message and exits
-#   - Pipelines return the exit status of the last command in the pipe to fail
-#
 set -euo pipefail
 
 
@@ -12,26 +8,31 @@ set -euo pipefail
 # CONFIGURATION
 ###############################################################################
 
-# EDIT ME:
-# This is the only part of the script which needs to be customized once a new
-# file is added.
-#
 # The format is 'source file' -> 'destination'.
-# 'source-file' is the file path in this repository. 'destination' is the
-# location which should be linked to 'source-file' when the script is run.
+# For full setup (packages + symlinks), use the setup scripts instead:
+#   macOS:       ./setup-macos.sh
+#   Ubuntu/WSL:  ./setup-ubuntu.sh
+#   Windows:     .\setup-windows.ps1
 #
 declare -a FILES=(
-  'git/gitconfig               -> ~/.gitconfig'
-  'git/gitignore_global        -> ~/.gitignore_global'
-  'git/tigrc                   -> ~/.tigrc'
-  'shell/tmux.conf             -> ~/.tmux.conf'
-  'shell/zshrc                 -> ~/.zshrc'
-  'tty/alacritty/alacritty.yml -> ~/.config/alacritty/alacritty.yml'
-  'vim/autoload/plug.vim       -> ~/.vim/autoload/plug.vim'
-  'vim/vimrc                   -> ~/.vimrc'
-  'config/starship.toml        -> ~/.config/starship.toml'
-  'bin                         -> ~/bin'
+    'git/gitconfig               -> ~/.gitconfig'
+    'git/gitignore_global        -> ~/.gitignore_global'
+    'git/tigrc                   -> ~/.tigrc'
+    'vim/autoload/plug.vim       -> ~/.vim/autoload/plug.vim'
+    'vim/vimrc                   -> ~/.vimrc'
+    'config/starship.toml        -> ~/.config/starship.toml'
+    'config/delta/themes.gitconfig -> ~/.config/delta/themes.gitconfig'
 )
+
+# OS-specific gitconfig overlay
+case "$(uname -s)" in
+    Darwin*)
+        FILES+=('git/gitconfig-macos -> ~/.gitconfig-os')
+        ;;
+    Linux*)
+        FILES+=('git/gitconfig-linux -> ~/.gitconfig-os')
+        ;;
+esac
 
 
 ###############################################################################
@@ -104,11 +105,11 @@ print_help() {
     echo "Usage: ${SCRIPT} [-h|--help] [-f] [-d] [-l]"
     echo ""
     echo "    Description:"
-    echo "        Bootstraps all my config files by linking all the config files in"
-    echo "        this repo to their usual destination in the system. Using symlinks"
-    echo "        like this is useful because when I update a config file, either in"
-    echo "        the repo or where it's being linked to, the file will be updated"
-    echo "        everywhere."
+    echo "        Relinks config files to their usual destinations."
+    echo "        For full setup (packages + symlinks), use the setup scripts:"
+    echo "          macOS:       ./setup-macos.sh"
+    echo "          Ubuntu/WSL:  ./setup-ubuntu.sh"
+    echo "          Windows:     .\\setup-windows.ps1"
     echo ""
     echo "    Options:"
     echo "        --help | -h"
@@ -129,47 +130,22 @@ print_help() {
     exit 1
 }
 
-# Lists all file destinations in the format:
-#
-#     /Users/username/.gitconfig
-#     /Users/username/.gitignore_global
-#     /Users/username/.tigrc
-#     /Users/username/.vimrc
-#     ...
-#
 list_destinations() {
     for mapping in "${FILES[@]}"; do
         file_dest "${mapping}"
     done
 }
 
-# Returns the file source from a 'file-source -> file-destination' mapping
-# in the $FILES array.
-#
-# - Argument $1: Mapping string, i.e. 'file-source -> file-destination'
-# - Returns: 'file-source'
-#
 file_source() {
     echo "$1" | awk 'BEGIN { FS = " +-> +" } END { print $1 }'
 }
 
-# Returns the file destination from a 'file-source -> file-destination' mapping
-# in the $FILES array.
-#
-# - Argument $1: Mapping string, i.e. 'file-source -> file-destination'
-# - Returns: 'file-destination'
-#
 file_dest() {
     dest=$(echo "$1" | awk 'BEGIN { FS = " +-> +" } END { print $2 }')
     echo "${dest/#\~/$HOME}"
 }
 
-# Sets up symlinks for each file in $FILES. If the destination directory
-# doesn't exist, it is created. If the destination file already exists,
-# no action is taken.
-#
 link_files() {
-    # Keeps track of whether any links were created or not.
     local created_links='false'
 
     local file
@@ -214,8 +190,4 @@ link_files() {
 # ENTRY POINT
 ###############################################################################
 
-# The unusual syntax (versus `main "${@}"`) is a workaround for a bug in some
-# non-POSIX compliant versions of bash in which $@ is reported as unbound.
-#
 main "${@:+$@}"
-

@@ -1,0 +1,7 @@
+# Linux/WSL-specific git overrides
+# Symlinked to ~/.gitconfig-os by setup-ubuntu.sh
+
+[gpg]
+    program = gpg2
+[credential "https://github.com"]
+    helper = !/usr/bin/gh auth git-credential

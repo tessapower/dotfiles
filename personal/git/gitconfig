@@ -1,50 +1,46 @@
 [core]
-  editor = /usr/bin/nvim
-  pager = delta
-  excludesfile = ~/.gitignore_global
-  whitespace = trailing-space,space-before-tab,blank-at-eol
-  precomposeunicode = true
-  autocrlf = false
-  eol = lf
+    editor = nvim
+    pager = delta
+    excludesfile = ~/.gitignore_global
+    whitespace = trailing-space,space-before-tab,blank-at-eol
+    precomposeunicode = true
+    autocrlf = false
+    eol = lf
 [interactive]
-  diffFilter = delta --color-only
+    diffFilter = delta --color-only
 [diff]
-  colorMoved = default
+    colorMoved = default
 [delta]
-  features = decorations
-  navigate = true
-  syntax-theme = Nord
-  line-numbers = true
+    features = decorations
+    navigate = true
+    syntax-theme = Nord
+    line-numbers = true
 [apply]
-  whitespace = warn
+    whitespace = warn
 [merge]
-  conflictstyle = diff3
-[credential "https://github.com"]
-  helper = !/usr/bin/gh auth git-credential
+    conflictstyle = diff3
 [user]
-  name = Tessa Power
-  email = tessa@tessapower.co
-  signingkey = EBB2CC5131D162EA
+    name = Tessa Power
+    email = tessa@tessapower.co
+    signingkey = EBB2CC5131D162EA
 [color]
-  status = auto
-  branch = auto
-  ui = auto
+    status = auto
+    branch = auto
+    ui = auto
 [push]
-  default = upstream
+    default = upstream
 [pull]
-  default = current
-  rebase = true
+    default = current
+    rebase = true
 [init]
-  defaultBranch = main
+    defaultBranch = main
 [commit]
-  gpgsign = true
-[gpg]
-  program = gpg2
-[init]
-  defaultBranch = main
+    gpgsign = true
 [filter "lfs"]
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
-  clean = git-lfs clean -- %f
-
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+[include]
+    path = ~/.config/delta/themes.gitconfig
+    path = ~/.gitconfig-os

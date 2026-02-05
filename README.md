@@ -1,60 +1,98 @@
 # Tessa's Dotfiles
 
-These are my dotfiles. They aren't intended to be useful to anyone other than myself. I have a Windows 11 machine and for development I use WSL with Ubuntu. 
+These are my dotfiles. I use them across macOS, Ubuntu/WSL, and Windows 11.
 
 ## Organization
 
-Files in the `common` directory are things I tend to use across multiple machines.
+```
+dotfiles/
+├── assets/                    Wallpapers, profile pics, JetBrains themes
+├── personal/
+│   ├── setup-macos.sh         macOS setup (Homebrew, symlinks, zsh)
+│   ├── setup-ubuntu.sh        Ubuntu/WSL setup (apt, symlinks, zsh)
+│   ├── setup-windows.ps1      Windows setup (winget, symlinks, PowerShell)
+│   ├── bootstrap.sh           Quick relink utility (no package installs)
+│   ├── bin/shared/            Cross-platform shell scripts
+│   ├── config/
+│   │   ├── starship.toml      Starship prompt config
+│   │   ├── delta/             Delta diff themes
+│   │   └── win-terminal/      Windows Terminal color schemes
+│   ├── git/
+│   │   ├── gitconfig          Shared git config (includes OS overlay)
+│   │   ├── gitconfig-linux    Linux/WSL overrides
+│   │   ├── gitconfig-macos    macOS overrides
+│   │   ├── gitconfig-windows  Windows overrides
+│   │   └── gitignore_global   Global gitignore
+│   ├── shell/
+│   │   ├── shared/
+│   │   │   ├── zshrc          Shared ZSH core (sourced by all *nix)
+│   │   │   └── aliases.sh     Cross-platform aliases and functions
+│   │   ├── macos/zshrc        macOS-specific (Homebrew, plugins)
+│   │   ├── ubuntu/zshrc       Ubuntu/WSL-specific (apt plugins, WSL)
+│   │   └── win11/*.ps1        PowerShell profile
+│   └── vim/                   Vim config and plugins
+```
 
-Files in the `personal` directory are organized by topic:
+## Quick Start
 
-- **bin**: home-rolled shell scripts.
-- **config**: things that are usually found in the `.config` dir.
-- **git**: everything relating to git (aliases, configs, etc).
-- **shell**: zsh and tmux configurations.
-- **vim**: vim configuration and plugins.
-
-## bootstrap.sh
-
-The `bootstrap.sh` script will install the dotfiles in their respective
-locations. Because altering your home directory is scary, `bootstrap.sh`
-comes with a dry-run option (flag: `-d`).
-
-### Configuration
-
-The only part of the script which needs to be changed is the `FILES` array at
-the start of `bootstrap.sh`. The `FILES` array contains a mapping of
-every file in the repository and the location it should be linked to.
+Clone into `~/Developer/personal/` and run the setup script for your OS:
 
 ```sh
-declare -a FILES=(
-    'git/gitignore_global -> ~/.gitignore_global'
-    'git/tigrc -> ~/.tigrc'
-    'vim/vimrc -> ~/.vimrc'
-    'shell/zshrc -> ~/.zshrc'
-    'shell/tmux.conf -> ~/.tmux.conf'
-    'tty/alacritty/alacritty.yml -> ~/.config/alacritty/alacritty.yml'
-)
+# Clone
+mkdir -p ~/Developer/personal
+cd ~/Developer/personal
+git clone <repo-url> dotfiles
+
+# macOS
+cd dotfiles/personal && ./setup-macos.sh
+
+# Ubuntu / WSL
+cd dotfiles/personal && ./setup-ubuntu.sh
 ```
 
-### Usage
-
-```
-Usage: ./bootstrap.sh [-h|--help] [-f] [-d] [-l]
-    --help | -h
-        Prints this menu
-    -d
-        Dry run. Echoes the commands which would be executed to
-        stdout but doesn't modify anything.
-    -f
-        Force. Overwrites any existing files.
-    -l
-        Lists the files that would be installed by this program. Each
-        full path is printed on a new line making the output suitable
-        for piping to xargs or using as a for-loop input, i.e:
-
-            for file in $(./bootstrap.sh -l); do
-                ls -lah "$file";
-            done
+```powershell
+# Windows (elevated PowerShell)
+cd ~\Developer\personal\dotfiles\personal
+.\setup-windows.ps1
 ```
 
+Each setup script will:
+1. Install required packages (Homebrew/apt/winget)
+2. Create symlinks from the repo to their expected locations
+3. Generate a `~/.zshrc` (or link a PowerShell profile) that sources the
+   shared config followed by OS-specific additions
+
+## How the Shell Config Works
+
+On macOS and Linux, `~/.zshrc` is a small generated loader:
+
+```zsh
+DOTFILES="$HOME/Developer/personal/dotfiles/personal"
+[[ -f "$DOTFILES/shell/shared/zshrc" ]] && source "$DOTFILES/shell/shared/zshrc"
+[[ -f "$DOTFILES/shell/macos/zshrc" ]]  && source "$DOTFILES/shell/macos/zshrc"
+```
+
+- **shared/zshrc** sets up: locale, `$EDITOR`, `$DOTFILES`, `$SCM`, PATH,
+  OS detection (`$OS`), ZSH options, completions, starship, GPG, vim mode,
+  NVM, and sources `shared/aliases.sh`.
+- **OS-specific zshrc** adds: `$STARSHIP_OS_ICON`, plugin paths, and
+  OS-specific functions (TTS timers, etc).
+
+On Windows, the PowerShell profile is symlinked directly and provides
+equivalent aliases and starship integration.
+
+## How Git Config Works
+
+`git/gitconfig` is the shared base. It includes `~/.gitconfig-os` which each
+setup script symlinks to `gitconfig-linux`, `gitconfig-macos`, or
+`gitconfig-windows`.
+This keeps OS-specific paths (editor, GPG, credential helper) separate from
+shared settings.
+
+## Relinking Only
+
+If you've already run the setup script and just need to refresh symlinks:
+
+```sh
+./bootstrap.sh        # dry run: ./bootstrap.sh -d
+```

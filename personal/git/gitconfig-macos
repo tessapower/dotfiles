@@ -1,0 +1,5 @@
+# macOS-specific git overrides
+# Symlinked to ~/.gitconfig-os by setup-macos.sh
+
+[credential "https://github.com"]
+    helper = !/opt/homebrew/bin/gh auth git-credential

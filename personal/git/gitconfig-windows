@@ -1,0 +1,16 @@
+# Windows-specific git overrides
+# Symlinked to ~/.gitconfig-os by setup-windows.ps1
+
+[core]
+    editor = C:/tools/neovim/nvim-win64/bin/nvim.exe
+    sshCommand = 'C:/Program Files/OpenSSH-Win64/ssh.exe'
+    fsmonitor = true
+[interactive]
+    diffFilter = delta --color-only --dark --diff-highlight
+[delta]
+    features = unobtrusive-line-numbers decorations tangara-chilensis
+    side-by-side = true
+[gpg]
+    program = "C:/Program Files (x86)/GnuPG/bin/gpg.exe"
+[credential]
+    helper = manager

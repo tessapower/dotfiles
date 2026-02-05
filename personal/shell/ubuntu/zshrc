@@ -1,0 +1,77 @@
+#!/usr/bin/env zsh
+# Ubuntu/WSL-specific ZSH config
+# Sourced after shell/shared/zshrc
+
+################################################################################
+# STARSHIP OS ICON
+################################################################################
+
+export STARSHIP_OS_ICON=""
+
+
+################################################################################
+# WSL
+################################################################################
+
+if [[ "$OS" == "wsl" ]]; then
+    export DISPLAY="$(grep nameserver /etc/resolv.conf | sed 's/nameserver //')":0
+fi
+
+
+################################################################################
+# ZSH PLUGINS (apt-installed paths)
+################################################################################
+
+[[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+    source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+[[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+    source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+if [[ -r /usr/share/zsh/functions/command-not-found.zsh ]]; then
+    source /usr/share/zsh/functions/command-not-found.zsh
+    export PKGFILE_PROMPT_INSTALL_MISSING=1
+fi
+
+
+################################################################################
+# SIT/STAND TIMER
+################################################################################
+
+# Sitting. Set a 20 min timer before transitioning to stand.
+# http://ergo.human.cornell.edu/CUESitStand.html
+sitting() {
+    clear
+    timer_announce $(( 20 * 60 )) "Time to stand up"
+}
+
+# Standing. Set an 8 min timer before transitioning to walking around a bit.
+standing() {
+    clear
+    timer_announce $(( 8 * 60 )) "Time to walk around a bit"
+}
+
+# Walking. Set a 2 min timer before transitioning to sitting.
+walking() {
+    clear
+    timer_announce $(( 2 * 60 )) "Time to sit down"
+}
+
+# Play an announcement sound and display message after a timer elapses.
+# $1: duration (secs)
+# $2: terminal message
+timer_announce() {
+    if [[ $# -ne 2 ]]; then
+        echo "usage: timer_announce duration msg" >&2
+        return 1
+    fi
+
+    timeout $1 countdown $1
+    printf "\033[2K\r%s\n" "${2}"
+
+    if [[ "$OS" == "wsl" ]]; then
+        powershell.exe "Add-Type -AssemblyName System.speech;\$speak=New-Object System.Speech.Synthesis.SpeechSynthesizer;\$speak.SelectVoice(\"Microsoft Zira Desktop\");\$speak.Speak(\"${2}\")"
+    fi
+
+    stopwatch
+}
