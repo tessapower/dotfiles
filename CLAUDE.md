@@ -281,30 +281,38 @@ font-test    # Should show bold/italic/underline — if boxes appear, font isn't
 
 ---
 
-## Section 7 — Winget Package Bundle (optional)
+## Section 7 — Winget Package Bundle
 
-If a curated `packages.json` exists in the repo root, it can be used to install a known-good
-package set in one shot — useful for ensuring nothing is missed.
+A curated `packages.json` in the repo root installs the full known-good package set in one
+shot. It includes all dev tools, shell utilities, and apps — Logitech software is included
+but ask before installing (only useful if Logitech peripherals are present).
 
 ```powershell
-# Import from saved bundle (if it exists)
-if (Test-Path "$PSScriptRoot\packages.json") {
+# Ask about Logitech first
+$installLogitech = (Read-Host "Do you have Logitech peripherals? (y/n)") -eq 'y'
+
+if (-not $installLogitech) {
+    # Remove Logitech entries before importing
+    $bundle = Get-Content "$PSScriptRoot\packages.json" | ConvertFrom-Json
+    $bundle.Sources[0].Packages = $bundle.Sources[0].Packages |
+        Where-Object { $_.PackageIdentifier -notlike "Logitech.*" }
+    $bundle | ConvertTo-Json -Depth 10 | Set-Content "$env:TEMP\packages-filtered.json"
+    winget import -i "$env:TEMP\packages-filtered.json" --accept-package-agreements --accept-source-agreements
+} else {
     winget import -i "$PSScriptRoot\packages.json" --accept-package-agreements --accept-source-agreements
 }
 ```
 
-To update the bundle from the current machine after adding new tools:
+To update the bundle after adding new tools:
 
 ```powershell
+# Export, then manually remove any system/runtime noise before committing
 winget export -o ~/Developer/dotfiles/packages.json
-cd ~/Developer/dotfiles
-git add packages.json
-git commit -m "chore: update winget package bundle"
-git push
 ```
 
-> Note: `winget export` captures everything installed, including system components. Review
-> and trim the JSON before committing — keep only intentionally installed developer tools.
+> The bundle intentionally excludes: Visual Studio, Windows SDK, RenderDoc, PIX (install
+> these only when doing graphics work), and Chrome/Zoom/Adobe Acrobat (managed by IT or
+> not wanted by default).
 
 ---
 

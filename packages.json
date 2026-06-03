@@ -1,0 +1,41 @@
+{
+	"$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+	"CreationDate": "2026-06-03T00:00:00.000-00:00",
+	"Sources": [
+		{
+			"Packages": [
+				{ "PackageIdentifier": "dandavison.delta" },
+				{ "PackageIdentifier": "Git.Git" },
+				{ "PackageIdentifier": "GitHub.cli" },
+				{ "PackageIdentifier": "GitHub.GitLFS" },
+				{ "PackageIdentifier": "GnuPG.GnuPG" },
+				{ "PackageIdentifier": "Gyan.FFmpeg" },
+				{ "PackageIdentifier": "junegunn.fzf" },
+				{ "PackageIdentifier": "lsd-rs.lsd" },
+				{ "PackageIdentifier": "Microsoft.PowerShell" },
+				{ "PackageIdentifier": "Microsoft.VisualStudioCode" },
+				{ "PackageIdentifier": "Microsoft.WindowsTerminal" },
+				{ "PackageIdentifier": "Neovim.Neovim" },
+				{ "PackageIdentifier": "OBSProject.OBSStudio" },
+				{ "PackageIdentifier": "Python.Launcher" },
+				{ "PackageIdentifier": "Python.Python.3.14" },
+				{ "PackageIdentifier": "BurntSushi.ripgrep.MSVC" },
+				{ "PackageIdentifier": "sharkdp.bat" },
+				{ "PackageIdentifier": "sharkdp.fd" },
+				{ "PackageIdentifier": "Starship.Starship" },
+				{ "PackageIdentifier": "twpayne.chezmoi" },
+				{ "PackageIdentifier": "VideoLAN.VLC" },
+				{ "PackageIdentifier": "Logitech.GHUB" },
+				{ "PackageIdentifier": "Logitech.LogiTune" },
+				{ "PackageIdentifier": "Logitech.OptionsPlus" }
+			],
+			"SourceDetails": {
+				"Argument": "https://cdn.winget.microsoft.com/cache",
+				"Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Name": "winget",
+				"Type": "Microsoft.PreIndexed.Package"
+			}
+		}
+	],
+	"WinGetVersion": "1.28.240"
+}
