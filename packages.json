@@ -9,6 +9,7 @@
 				{ "PackageIdentifier": "GitHub.cli" },
 				{ "PackageIdentifier": "GitHub.GitLFS" },
 				{ "PackageIdentifier": "GnuPG.GnuPG" },
+				{ "PackageIdentifier": "DEVCOM.JetBrainsMonoNerdFont" },
 				{ "PackageIdentifier": "Gyan.FFmpeg" },
 				{ "PackageIdentifier": "junegunn.fzf" },
 				{ "PackageIdentifier": "lsd-rs.lsd" },

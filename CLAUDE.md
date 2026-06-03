@@ -129,7 +129,10 @@ winget install GnuPG.GnuPG            # GPG
 winget install Docker.DockerDesktop   # Docker (if chosen)
 ```
 
-### Fonts (via scoop)
+### Fonts
+
+JetBrainsMono Nerd Font is included in `packages.json` and installed via winget above.
+Recursive-NF-Mono (primary font) and RobotoMono-NF are only available via scoop:
 
 ```powershell
 # Install scoop if not present
@@ -140,7 +143,7 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
 
 scoop bucket add nerd-fonts 2>$null
 scoop install Recursive-NF-Mono   # Primary font (Rec Mono Linear Nerd Font)
-scoop install JetBrainsMono-NF    # Fallback
+scoop install RobotoMono-NF       # Fallback
 ```
 
 ---
