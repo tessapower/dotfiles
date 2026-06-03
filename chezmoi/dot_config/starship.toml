@@ -1,0 +1,134 @@
+# Starship Prompt Configuration
+# https://starship.rs/config/
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+command_timeout = 2000
+
+# OS indicator (shows different icon per OS)
+[custom.os_icon]
+command = "echo $STARSHIP_OS_ICON"
+format = "[$output]($style)"
+style = "bold blue"
+disabled = false
+
+# Battery: shows how charged the device's battery is and its current charging(
+# status. The module is only visible when the device's battery is below 20%.
+[[battery.display]]
+threshold = 20
+style = "bold red"
+
+# Shows a character beside where the text is entered in the terminal
+[character]
+success_symbol = "[ʃ](bold green) "
+error_symbol = "[✗](bold red) "
+vicmd_symbol = "[](bold blue) "
+
+[directory]
+# Show at most the current and parent directory
+truncation_length = 2
+# Don't override the truncation length when in a git repo
+truncate_to_repo = false
+# Show that we're in a truncated dir
+truncation_symbol = "…/"
+# Change read only symbol
+read_only = " "
+read_only_style = "red"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[directory.substitutions]
+"Documents" = "󱔗 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"Videos" = " "
+"Projects" = "󰏓 "
+"Dropbox" = " "
+"OneDrive" = "󰏊 "
+"Favorites" = " "
+"scoop" = " "
+
+[git_status]
+style = "bold yellow"
+ahead = ""
+behind = ""
+conflicted = ""
+deleted = ""
+diverged = "󰦻"
+modified = ""
+renamed = "󰑕"
+staged = ""
+stashed = ""
+untracked = ""
+# Use this (Linux) path to a Windows Starship executable to render git_status
+# when on Windows paths in WSL
+# windows_starship = "/mnt/c/Users/tessa/scoop/apps/starship/1.9.1/starship.exe"
+
+[git_branch]
+style = "bold cyan"
+symbol = " "
+
+# NerdFont Symbols
+[c]
+symbol = " "
+
+[cmake]
+symbol = " cmake "
+
+[cpp]
+symbol = "󰙲 "
+
+[java]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[nodejs]
+symbol = "󰎙 "
+
+[python]
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+symbol = " "
+style = "bold yellow"
+
+# Explicitly disable everything else to make things fast!
+
+[aws]
+disabled = true
+
+[azure]
+disabled = true
+
+[conda]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[golang]
+disabled = true
+
+[haskell]
+disabled = true
+
+[julia]
+disabled = true
+
+[nim]
+disabled = true
+
+[package]
+disabled = true
+
+[rust]
+disabled = true
