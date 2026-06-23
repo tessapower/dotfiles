@@ -1,10 +1,11 @@
 #Requires -RunAsAdministrator
-# Windows 11 setup script
+# Windows 11 setup script — elevated portion
 # Run from an elevated PowerShell: .\setup-windows.ps1
+# After this completes, run .\setup-windows-user.ps1 in a non-elevated PowerShell.
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "Setting up Windows environment..." -ForegroundColor Cyan
+Write-Host "Setting up Windows environment (elevated)..." -ForegroundColor Cyan
 
 $DotfilesDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Write-Host "Using dotfiles from: $DotfilesDir"
@@ -15,41 +16,43 @@ Write-Host "Using dotfiles from: $DotfilesDir"
 
 Write-Host "`nInstalling packages via winget..." -ForegroundColor Cyan
 
-$packages = @(
-    "Starship.Starship"
-    "sharkdp.bat"
-    "lsd-rs.lsd"
-    "BurntSushi.ripgrep.MSVC"
-    "sharkdp.fd"
-    "junegunn.fzf"
-    "jesseduffield.lazygit"
-    "dandavison.delta"
-    "Neovim.Neovim"
-    "Git.Git"
-    "GitHub.cli"
-    "GnuPG.GnuPG"
-)
-
-foreach ($pkg in $packages) {
-    Write-Host "  Installing $pkg..."
-    winget install --id $pkg --accept-source-agreements --accept-package-agreements --silent 2>$null
+$bundlePath = Join-Path (Split-Path $DotfilesDir) "packages.json"
+if (Test-Path $bundlePath) {
+    Write-Host "  Using curated bundle: $bundlePath"
+    $installLogitech = (Read-Host "  Do you have Logitech peripherals? (y/n)") -eq 'y'
+    if (-not $installLogitech) {
+        $bundle = Get-Content $bundlePath | ConvertFrom-Json
+        $bundle.Sources[0].Packages = $bundle.Sources[0].Packages |
+            Where-Object { $_.PackageIdentifier -notlike "Logitech.*" }
+        $filtered = "$env:TEMP\packages-filtered.json"
+        $bundle | ConvertTo-Json -Depth 10 | Set-Content $filtered
+        winget import -i $filtered --accept-package-agreements --accept-source-agreements
+    } else {
+        winget import -i $bundlePath --accept-package-agreements --accept-source-agreements
+    }
+} else {
+    Write-Host "  packages.json not found, installing essential packages individually..."
+    $packages = @(
+        "Git.Git"
+        "GitHub.cli"
+        "Starship.Starship"
+        "twpayne.chezmoi"
+        "sharkdp.bat"
+        "lsd-rs.lsd"
+        "BurntSushi.ripgrep.MSVC"
+        "sharkdp.fd"
+        "junegunn.fzf"
+        "jesseduffield.lazygit"
+        "dandavison.delta"
+        "Neovim.Neovim"
+        "Microsoft.VisualStudioCode"
+        "GnuPG.GnuPG"
+    )
+    foreach ($pkg in $packages) {
+        Write-Host "  Installing $pkg..."
+        winget install --id $pkg --accept-source-agreements --accept-package-agreements --silent 2>$null
+    }
 }
-
-###############################################################################
-# NERD FONTS (via scoop)
-###############################################################################
-
-Write-Host "`nInstalling Nerd Fonts..." -ForegroundColor Cyan
-
-if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
-    Write-Host "  Installing scoop..."
-    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-}
-
-scoop bucket add nerd-fonts 2>$null
-scoop install JetBrainsMono-NF 2>$null
-scoop install RobotoMono-NF 2>$null
 
 ###############################################################################
 # DIRECTORIES
@@ -114,14 +117,23 @@ Write-Host "  Copy relevant sections into your Windows Terminal settings manuall
 Write-Host "  Typical location: %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json"
 
 ###############################################################################
-# DONE
+# DONE — launch user-level setup
 ###############################################################################
 
 Write-Host ""
-Write-Host "Windows setup complete!" -ForegroundColor Green
+Write-Host "Elevated setup complete!" -ForegroundColor Green
 Write-Host ""
-Write-Host "Next steps:"
-Write-Host "  1. Close and reopen your terminal"
-Write-Host "  2. Run 'gh auth login' to authenticate with GitHub"
-Write-Host "  3. Run ':PlugInstall' in vim to install plugins"
+Write-Host "Launching non-elevated setup for fonts and chezmoi..." -ForegroundColor Cyan
+
+$userScript = Join-Path $DotfilesDir "setup-windows-user.ps1"
+if (Test-Path $userScript) {
+    Start-Process pwsh -ArgumentList "-NoExit", "-File", "`"$userScript`"" -Verb Open
+} else {
+    Write-Host "  setup-windows-user.ps1 not found — run it manually in a non-elevated shell." -ForegroundColor Yellow
+}
+
+Write-Host ""
+Write-Host "Next steps (in the new window):"
+Write-Host "  1. Run 'gh auth login' to authenticate with GitHub"
+Write-Host "  2. Run ':PlugInstall' in vim to install plugins"
 Write-Host ""
