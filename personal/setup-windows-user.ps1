@@ -36,15 +36,13 @@ if (-not (Get-Command chezmoi -ErrorAction SilentlyContinue)) {
     Write-Host "  chezmoi not found — was the elevated setup completed first?" -ForegroundColor Yellow
 } else {
     $chezmoiConfig = "$HOME\.config\chezmoi\chezmoi.toml"
+    New-Item -ItemType Directory -Force "$HOME\.config\chezmoi" | Out-Null
     if (-not (Test-Path $chezmoiConfig)) {
-        New-Item -ItemType Directory -Force "$HOME\.config\chezmoi" | Out-Null
+        Set-Content $chezmoiConfig 'sourceDir = "~/.local/share/chezmoi"'
+    }
+    if (-not (Select-String -Path $chezmoiConfig -Pattern "work\s*=" -Quiet)) {
         $isWork = (Read-Host "  Is this a work machine? (y/n)") -eq 'y'
-        @"
-sourceDir = "~/.local/share/chezmoi"
-
-[data]
-    work = $($isWork.ToString().ToLower())
-"@ | Set-Content $chezmoiConfig
+        Add-Content $chezmoiConfig "`n[data]`n    work = $($isWork.ToString().ToLower())"
     }
 
     if (Test-Path "$HOME\.local\share\chezmoi\.git") {
