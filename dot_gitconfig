@@ -1,0 +1,51 @@
+[core]
+    editor = nvim
+    pager = delta
+    excludesfile = ~/.gitignore_global
+    whitespace = trailing-space,space-before-tab,blank-at-eol
+    precomposeunicode = true
+    autocrlf = false
+    eol = lf
+	fscache = true
+	untrackedCache = true
+	fsmonitor = true
+[interactive]
+    diffFilter = delta --color-only
+[diff]
+    colorMoved = default
+[delta]
+    features = decorations
+    navigate = true
+    syntax-theme = Nord
+    line-numbers = true
+[apply]
+    whitespace = warn
+[merge]
+    conflictstyle = diff3
+[user]
+    name = Tessa Power
+    email = tpower@amd.com
+	signingkey = C:\\Users\\tpower/.ssh/id_ed25519.pub
+[color]
+    status = auto
+    branch = auto
+    ui = auto
+[push]
+    default = upstream
+[pull]
+    default = current
+    rebase = true
+[init]
+    defaultBranch = main
+[commit]
+	gpgsign = true
+[filter "lfs"]
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+[include]
+    path = ~/.config/delta/themes.gitconfig
+    path = ~/.gitconfig-os
+[gpg]
+	format = ssh

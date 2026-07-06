@@ -19,7 +19,12 @@ if (Get-Command starship -ErrorAction SilentlyContinue) {
     $starshipMtime = (Get-Item $starshipExe).LastWriteTime
     $cacheMtime = if (Test-Path $starshipCache) { (Get-Item $starshipCache).LastWriteTime } else { [DateTime]::MinValue }
     if ($cacheMtime -lt $starshipMtime) {
-        starship init powershell --print-full-init | Out-File $starshipCache -Encoding utf8
+        $initScript = (& $starshipExe init powershell --print-full-init) -join [Environment]::NewLine
+        # Starship spawns itself at dot-source time to compute the continuation prompt — ~800ms cost.
+        # Pre-compute it once here and bake the result in so dot-sourcing the cache is near-instant.
+        $contPrompt = (& $starshipExe prompt --continuation).Trim()
+        $initScript = $initScript -replace '(?s)Set-PSReadLineOption -ContinuationPrompt \([\s\S]*?\n    \)', "Set-PSReadLineOption -ContinuationPrompt `"$contPrompt`""
+        $initScript | Set-Content $starshipCache -Encoding utf8
     }
     . $starshipCache
 }
