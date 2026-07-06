@@ -3,7 +3,7 @@
 
 [core]
     editor = C:/tools/neovim/nvim-win64/bin/nvim.exe
-    sshCommand = 'C:/Program Files/OpenSSH-Win64/ssh.exe'
+    sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
     fsmonitor = true
 [interactive]
     diffFilter = delta --color-only --dark --diff-highlight
