@@ -38,7 +38,13 @@ if (-not (Get-Command chezmoi -ErrorAction SilentlyContinue)) {
     $chezmoiConfig = "$HOME\.config\chezmoi\chezmoi.toml"
     if (-not (Test-Path $chezmoiConfig)) {
         New-Item -ItemType Directory -Force "$HOME\.config\chezmoi" | Out-Null
-        Set-Content $chezmoiConfig 'sourceDir = "~/.local/share/chezmoi"'
+        $isWork = (Read-Host "  Is this a work machine? (y/n)") -eq 'y'
+        @"
+sourceDir = "~/.local/share/chezmoi"
+
+[data]
+    work = $($isWork.ToString().ToLower())
+"@ | Set-Content $chezmoiConfig
     }
 
     if (Test-Path "$HOME\.local\share\chezmoi\.git") {
