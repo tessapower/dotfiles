@@ -324,3 +324,15 @@ winget export -o ~/Developer/dotfiles/packages.json
 - To add a new managed config file: `chezmoi add <path>` then `cd ~/.local/share/chezmoi && git add . && git commit && git push`
 - To sync configs on an existing machine: `chezmoi update`
 - The `personal/` directory is ignored by chezmoi — files there are managed manually or via symlinks from the legacy setup script
+
+## Known Limitations
+
+**OneDrive profile redirect (work machines):** Chezmoi always writes the PS profile to
+`~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1`, but on work machines `$PROFILE`
+resolves to the OneDrive path. After every `chezmoi apply` or `chezmoi update` that changes
+the profile, manually copy it across:
+
+```powershell
+Copy-Item ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1 $PROFILE -Force
+. $PROFILE
+```
