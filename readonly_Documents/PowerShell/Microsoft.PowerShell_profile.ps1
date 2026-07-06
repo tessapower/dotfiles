@@ -5,6 +5,8 @@
 ################################################################################
 
 $env:EDITOR = "nvim"
+$env:SCM = "$HOME\Developer"
+$env:DOTFILES = "$env:SCM\dotfiles"
 $env:STARSHIP_OS_ICON = ""
 $env:STARSHIP_CONFIG = "$HOME\.config\starship.toml"
 
@@ -53,10 +55,30 @@ if (Get-Command bat -ErrorAction SilentlyContinue) {
     function cat { bat @args }
 }
 
+# Navigation
+function .. { Set-Location .. }
+function ... { Set-Location ..\.. }
+function .... { Set-Location ..\..\.. }
+
+# Quick access
+function dots { Set-Location "$env:DOTFILES" }
+function cddev { Set-Location "$env:SCM" }
+
 # Git diff with bat
 function batdiff {
     git diff --name-only --relative --diff-filter=d | ForEach-Object { bat --diff $_ }
 }
 
-# Add VS CMake to path
-$env:PATH += ";C:\Program Files\Microsoft Visual Studio\18\Professional\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin"
+# Font test
+function font-test {
+    Write-Host "`e[1mbold`e[0m"
+    Write-Host "`e[3mitalic`e[0m"
+    Write-Host "`e[4munderline`e[0m"
+    Write-Host "`e[9mstrikethrough`e[0m"
+}
+
+# Add VS CMake to path if present
+$vsCMake = "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin"
+if (Test-Path $vsCMake) {
+    $env:PATH += ";$vsCMake"
+}
