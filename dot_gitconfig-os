@@ -14,6 +14,3 @@
     program = "C:/Program Files (x86)/GnuPG/bin/gpg.exe"
 [credential]
     helper = manager
-
-[includeIf "gitdir:~/Developer/work/"]
-    path = ~/.gitconfig-work

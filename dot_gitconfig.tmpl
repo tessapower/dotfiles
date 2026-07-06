@@ -6,9 +6,9 @@
     precomposeunicode = true
     autocrlf = false
     eol = lf
-	fscache = true
-	untrackedCache = true
-	fsmonitor = true
+    fscache = true
+    untrackedCache = true
+    fsmonitor = true
 [interactive]
     diffFilter = delta --color-only
 [diff]
@@ -24,8 +24,13 @@
     conflictstyle = diff3
 [user]
     name = Tessa Power
-    email = tpower@amd.com
-	signingkey = C:\\Users\\tpower/.ssh/id_ed25519.pub
+{{- if .work }}
+    email = tessa.power@amd.com
+    signingkey = ~/.ssh/id_ed25519.pub
+{{- else }}
+    email = hello@tessapower.xyz
+    signingkey = EBB2CC5131D162EA
+{{- end }}
 [color]
     status = auto
     branch = auto
@@ -38,7 +43,7 @@
 [init]
     defaultBranch = main
 [commit]
-	gpgsign = true
+    gpgsign = true
 [filter "lfs"]
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
@@ -48,4 +53,4 @@
     path = ~/.config/delta/themes.gitconfig
     path = ~/.gitconfig-os
 [gpg]
-	format = ssh
+    format = ssh
