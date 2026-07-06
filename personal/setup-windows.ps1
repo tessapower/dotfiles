@@ -55,66 +55,10 @@ if (Test-Path $bundlePath) {
 }
 
 ###############################################################################
-# DIRECTORIES
+# NOTE: Config files are managed by chezmoi — see setup-windows-user.ps1
 ###############################################################################
 
-$dirs = @(
-    "$HOME\.config\delta"
-    "$HOME\.vim\autoload"
-    "$HOME\bin"
-)
-
-foreach ($dir in $dirs) {
-    if (-not (Test-Path $dir)) {
-        New-Item -ItemType Directory -Path $dir -Force | Out-Null
-    }
-}
-
-###############################################################################
-# SYMLINKS
-###############################################################################
-
-Write-Host "`nCreating symlinks..." -ForegroundColor Cyan
-
-function New-Symlink {
-    param([string]$Link, [string]$Target)
-    if (Test-Path $Link) { Remove-Item $Link -Force -Recurse }
-    New-Item -ItemType SymbolicLink -Path $Link -Target $Target -Force | Out-Null
-}
-
-# Git
-New-Symlink "$HOME\.gitconfig" "$DotfilesDir\git\gitconfig"
-New-Symlink "$HOME\.gitconfig-os" "$DotfilesDir\git\gitconfig-windows"
-New-Symlink "$HOME\.gitignore_global" "$DotfilesDir\git\gitignore_global"
-Write-Host "  Linked git configs"
-
-# Starship
-New-Symlink "$HOME\.config\starship.toml" "$DotfilesDir\config\starship.toml"
-Write-Host "  Linked starship.toml"
-
-# Delta themes
-New-Symlink "$HOME\.config\delta\themes.gitconfig" "$DotfilesDir\config\delta\themes.gitconfig"
-Write-Host "  Linked delta themes"
-
-# Vim
-New-Symlink "$HOME\.vimrc" "$DotfilesDir\vim\vimrc"
-New-Symlink "$HOME\.vim\autoload\plug.vim" "$DotfilesDir\vim\autoload\plug.vim"
-Write-Host "  Linked vim config"
-
-# PowerShell profile
-$profileDir = Split-Path $PROFILE
-if (-not (Test-Path $profileDir)) {
-    New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
-}
-New-Symlink $PROFILE "$DotfilesDir\shell\win11\Microsoft.PowerShell_profile.ps1"
-Write-Host "  Linked PowerShell profile"
-
-# Windows Terminal settings (instructions only — path varies by install)
-Write-Host ""
-Write-Host "  Windows Terminal settings are at:" -ForegroundColor Yellow
-Write-Host "    $DotfilesDir\config\win-terminal\settings.json"
-Write-Host "  Copy relevant sections into your Windows Terminal settings manually."
-Write-Host "  Typical location: %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json"
+Write-Host "`nNote: dotfile configs will be applied by chezmoi in the next step." -ForegroundColor Cyan
 
 ###############################################################################
 # DONE — launch user-level setup
