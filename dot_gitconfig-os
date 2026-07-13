@@ -2,7 +2,7 @@
 # Symlinked to ~/.gitconfig-os by setup-windows.ps1
 
 [core]
-    editor = C:/tools/neovim/nvim-win64/bin/nvim.exe
+	editor = C:\\Program Files\\Neovim\\bin\\nvim.exe
     sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
     fsmonitor = true
 [interactive]
